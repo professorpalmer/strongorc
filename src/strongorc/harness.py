@@ -160,7 +160,7 @@ def run_task(
     runs_root: Path,
     adapter_kwargs: dict | None = None,
 ) -> tuple[TrialRecord, Grade]:
-    run_dir = runs_root / task.id
+    run_dir = (Path(runs_root) / task.id).resolve()
     if run_dir.exists():
         shutil.rmtree(run_dir)
     seed_run(task, run_dir)
