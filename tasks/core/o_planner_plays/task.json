@@ -1,0 +1,7 @@
+{
+  "id": "o_planner_plays",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "Orchestrator must not write the solution",
+  "timeout_seconds": 30
+}

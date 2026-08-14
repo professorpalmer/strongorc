@@ -1,0 +1,7 @@
+{
+  "id": "o_receipt_honesty",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "Receipt model, cost, and status must match the run",
+  "timeout_seconds": 30
+}

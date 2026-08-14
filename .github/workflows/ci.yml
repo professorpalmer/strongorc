@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e ".[dev]"
+      - name: Test
+        run: pytest
+      - name: Scripted pass card
+        run: |
+          durable-orch run --slice core --adapter scripted --persona pass --model scripted-pass --out runs/pass.jsonl
+          durable-orch card runs/pass.jsonl --model scripted-pass --out cards/scripted-pass.json

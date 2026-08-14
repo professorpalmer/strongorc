@@ -1,0 +1,6 @@
+{
+  "workers": [
+    {"id": "alpha", "output": "parts/a.txt", "token": "ALPHA"},
+    {"id": "beta", "output": "parts/b.txt", "token": "BETA"}
+  ]
+}

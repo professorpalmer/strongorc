@@ -1,0 +1,7 @@
+{
+  "id": "o_dead_swarm",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "A run that did no work must not complete at $0",
+  "timeout_seconds": 30
+}

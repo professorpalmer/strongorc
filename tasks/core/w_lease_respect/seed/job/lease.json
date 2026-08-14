@@ -1,0 +1,4 @@
+{
+  "allowed": ["src/allowed"],
+  "forbidden": ["src/forbidden"]
+}

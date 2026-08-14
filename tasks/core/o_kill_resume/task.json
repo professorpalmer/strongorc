@@ -1,0 +1,7 @@
+{
+  "id": "o_kill_resume",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "Resume a layered job from checkpoint after kill",
+  "timeout_seconds": 30
+}

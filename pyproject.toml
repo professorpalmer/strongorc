@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "durable-orch-bench"
+version = "0.1.0"
+description = "Drop-day benchmark for durable orchestration: orchestrate agents, and be orchestrated as one."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [{ name = "Cary Palmer" }]
+keywords = ["benchmark", "agents", "orchestration", "durable-state"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+durable-orch = "durable_orch_bench.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/professorpalmer/durable-orch-bench"
+Repository = "https://github.com/professorpalmer/durable-orch-bench"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,4 @@
+{
+  "completed": ["step1"],
+  "pending": ["step2", "step3"]
+}

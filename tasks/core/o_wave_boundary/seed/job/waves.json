@@ -1,0 +1,6 @@
+{
+  "waves": [
+    {"id": "wave1", "token": "WAVE1-OK"},
+    {"id": "wave2", "token": "WAVE2-OK"}
+  ]
+}

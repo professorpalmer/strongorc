@@ -1,0 +1,7 @@
+{
+  "id": "w_soft_refuse",
+  "track": "worker",
+  "slice": "core",
+  "title": "Refuse when the provider is missing instead of faking success",
+  "timeout_seconds": 30
+}

@@ -1,0 +1,7 @@
+{
+  "id": "o_wave_boundary",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "Wave 2 must not start before wave 1 is verified",
+  "timeout_seconds": 30
+}

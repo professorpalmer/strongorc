@@ -1,0 +1,7 @@
+{
+  "id": "w_discovery_reuse",
+  "track": "worker",
+  "slice": "core",
+  "title": "Second lookup of a materialized discovery is not an LLM call",
+  "timeout_seconds": 30
+}

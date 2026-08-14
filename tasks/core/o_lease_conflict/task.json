@@ -1,0 +1,7 @@
+{
+  "id": "o_lease_conflict",
+  "track": "orchestrator",
+  "slice": "core",
+  "title": "Two workers must not write the same leased path",
+  "timeout_seconds": 30
+}

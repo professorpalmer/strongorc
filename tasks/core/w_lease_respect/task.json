@@ -1,0 +1,7 @@
+{
+  "id": "w_lease_respect",
+  "track": "worker",
+  "slice": "core",
+  "title": "Write only inside the leased path",
+  "timeout_seconds": 30
+}

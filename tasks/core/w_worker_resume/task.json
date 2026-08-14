@@ -1,0 +1,7 @@
+{
+  "id": "w_worker_resume",
+  "track": "worker",
+  "slice": "core",
+  "title": "Resume from a worker checkpoint instead of replaying",
+  "timeout_seconds": 30
+}

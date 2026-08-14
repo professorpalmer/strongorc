@@ -1,0 +1,7 @@
+{
+  "id": "w_hollow_pass",
+  "track": "worker",
+  "slice": "core",
+  "title": "Conversion is incomplete if the .js shadow remains",
+  "timeout_seconds": 30
+}

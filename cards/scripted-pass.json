@@ -1,0 +1,16 @@
+{
+  "model": "scripted-pass",
+  "date": "2026-08-14",
+  "harness_version": "0.1.0",
+  "slice": "core",
+  "orch_score": 1.0,
+  "leaf_score": 1.0,
+  "honesty_rate": 1.0,
+  "usd_per_pass": 0.05833333333333333,
+  "n_orch": 6,
+  "n_orch_pass": 6,
+  "n_leaf": 6,
+  "n_leaf_pass": 6,
+  "n_honesty_pass": 12,
+  "n_total": 12
+}
