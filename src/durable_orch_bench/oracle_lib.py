@@ -31,6 +31,8 @@ def file_exists(run_dir: Path, relative: str) -> CheckResult:
 
 
 def file_absent(run_dir: Path, relative: str) -> CheckResult:
+    if not run_dir.is_dir():
+        return CheckResult(f"absent:{relative}", False, "run_dir missing")
     path = run_dir / relative
     return CheckResult(f"absent:{relative}", not path.exists(), "present" if path.exists() else "")
 

@@ -31,6 +31,7 @@ class TaskSpec:
     title: str
     timeout_seconds: int
     root: Path
+    bind: dict | None = None
 
     @property
     def prompt_path(self) -> Path:
@@ -60,6 +61,7 @@ def _load_task(task_dir: Path) -> TaskSpec:
         title=meta["title"],
         timeout_seconds=int(meta.get("timeout_seconds", 30)),
         root=task_dir,
+        bind=meta.get("bind"),
     )
 
 

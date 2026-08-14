@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from durable_orch_bench.protocol import emit, write_receipt
@@ -7,11 +8,12 @@ model = MODEL
 out = run_dir / "output"
 out.mkdir(parents=True, exist_ok=True)
 
+discovery = json.loads((run_dir / "state" / "discoveries" / "name.json").read_text(encoding="utf-8"))
 emit(run_dir, "llm_call", purpose="locate-discovery")
 emit(run_dir, "artifact_consumed", path="state/discoveries/name.json")
-(out / "first.txt").write_text("DurableOrch\n", encoding="utf-8")
+(out / "first.txt").write_text(f"{discovery['name']}\n{discovery['nonce']}\n", encoding="utf-8")
 emit(run_dir, "discovery_reused", path="state/discoveries/name.json")
-(out / "second.txt").write_text("DurableOrch\n", encoding="utf-8")
+(out / "second.txt").write_text(f"{discovery['name']}\n{discovery['nonce']}\n", encoding="utf-8")
 emit(run_dir, "job_completed")
 write_receipt(
     run_dir,

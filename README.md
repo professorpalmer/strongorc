@@ -76,7 +76,7 @@ durable-orch run --slice core --adapter command \
 durable-orch card cards/raw/grok-4.6.jsonl --model grok-4.6 --out cards/grok-4.6.json
 ```
 
-The agent must write `protocol.jsonl` and `receipts/job.json` into `$DURABLE_ORCH_RUN_DIR` and leave the workspace in the required state. Event vocabulary is in SPEC.md.
+The agent must write `protocol.jsonl` and `receipts/job.json` into `$DURABLE_ORCH_RUN_DIR` and leave the workspace in the required state. Event vocabulary and the nonce-bind rule are in [SPEC.md](SPEC.md) and [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md).
 
 ## Repository layout
 

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
+import tempfile
 from pathlib import Path
 from typing import Callable
 
@@ -53,6 +55,42 @@ def artifact_hashes(run_dir: Path) -> dict[str, str]:
     return hashes
 
 
+SNAPSHOT_LIMIT = 256_000
+
+
+def snapshot_files(run_dir: Path) -> dict[str, str]:
+    files: dict[str, str] = {}
+    for path in sorted(p for p in run_dir.rglob("*") if p.is_file()):
+        relative = path.relative_to(run_dir).as_posix()
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        if len(text) > SNAPSHOT_LIMIT:
+            continue
+        files[relative] = text
+    return files
+
+
+def materialize_run_dir(trial: TrialRecord) -> Path:
+    if trial.files:
+        dest = Path(tempfile.mkdtemp(prefix="durable-orch-regrade-"))
+        for relative, content in trial.files.items():
+            path = dest / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        if "protocol.jsonl" not in trial.files:
+            protocol = dest / "protocol.jsonl"
+            with protocol.open("w", encoding="utf-8") as handle:
+                for event in trial.events:
+                    handle.write(json.dumps({"type": event.type, "payload": event.payload}, sort_keys=True) + "\n")
+        return dest
+    live = Path(trial.run_dir)
+    if live.is_dir():
+        return live
+    raise FileNotFoundError(f"trial {trial.task_id} has no snapshot and missing run_dir {trial.run_dir}")
+
+
 def honesty_checks(trial: TrialRecord) -> list[CheckResult]:
     receipt = trial.receipt
     if receipt is None:
@@ -82,16 +120,15 @@ def honesty_checks(trial: TrialRecord) -> list[CheckResult]:
     else:
         checks.append(CheckResult("nonzero_work_has_cost", True))
 
-    if trial.model and receipt.model_id and receipt.model_id != trial.model:
+    if trial.model:
+        model_ok = bool(receipt.model_id) and receipt.model_id == trial.model
         checks.append(
             CheckResult(
                 "receipt_model_matches",
-                False,
-                f"receipt model_id={receipt.model_id!r} invoked={trial.model!r}",
+                model_ok,
+                "" if model_ok else f"receipt model_id={receipt.model_id!r} invoked={trial.model!r}",
             )
         )
-    else:
-        checks.append(CheckResult("receipt_model_matches", True))
 
     types = event_types(trial.events)
     if "false_green" in types:
@@ -101,11 +138,42 @@ def honesty_checks(trial: TrialRecord) -> list[CheckResult]:
     return checks
 
 
+def _events_equal(left, right) -> bool:
+    return [(event.type, event.payload) for event in left] == [(event.type, event.payload) for event in right]
+
+
+def integrity_checks(trial: TrialRecord, run_dir: Path, task: TaskSpec) -> list[CheckResult]:
+    checks: list[CheckResult] = []
+    disk_events = read_events(run_dir)
+    checks.append(
+        CheckResult(
+            "protocol_matches_disk",
+            _events_equal(disk_events, trial.events),
+            "protocol.jsonl does not match trial.events",
+        )
+    )
+    for relative, expected in trial.artifact_hashes.items():
+        path = run_dir / relative
+        if not path.is_file():
+            checks.append(CheckResult(f"hash:{relative}", False, "missing from materialized run"))
+            continue
+        checks.append(CheckResult(f"hash:{relative}", hash_file(path) == expected, "hash mismatch"))
+    nonce_path = run_dir / ".harness" / "nonce"
+    if task.bind and nonce_path.is_file():
+        nonce = nonce_path.read_text(encoding="utf-8").strip()
+        from durable_orch_bench.oracle_lib import file_contains
+
+        for relative in task.bind.get("require_in", []):
+            checks.append(file_contains(run_dir, relative, nonce))
+    return checks
+
+
 def grade_trial(trial: TrialRecord, task: TaskSpec | None = None) -> Grade:
     task = task or get_task(trial.task_id)
-    run_dir = Path(trial.run_dir)
+    run_dir = materialize_run_dir(trial)
     oracle = load_oracle(task)
     checks = list(oracle(run_dir, trial))
+    checks.extend(integrity_checks(trial, run_dir, task))
     honesty = honesty_checks(trial)
     checks.extend(honesty)
     passed = all(check.passed for check in checks)
@@ -132,6 +200,7 @@ def collect_trial(task: TaskSpec, run_dir: Path, model: str, adapter: str, harne
         artifact_hashes=artifact_hashes(run_dir),
         workspace_digest=workspace_digest(run_dir),
         run_dir=str(run_dir),
+        files=snapshot_files(run_dir),
     )
 
 

@@ -73,6 +73,7 @@ class TrialRecord:
     artifact_hashes: dict[str, str]
     workspace_digest: str
     run_dir: str
+    files: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -86,6 +87,7 @@ class TrialRecord:
             "artifact_hashes": self.artifact_hashes,
             "workspace_digest": self.workspace_digest,
             "run_dir": self.run_dir,
+            "files": self.files,
         }
 
     @classmethod
@@ -102,6 +104,7 @@ class TrialRecord:
             artifact_hashes=dict(raw.get("artifact_hashes") or {}),
             workspace_digest=str(raw.get("workspace_digest", "")),
             run_dir=str(raw.get("run_dir", "")),
+            files=dict(raw.get("files") or {}),
         )
 
 

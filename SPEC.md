@@ -36,9 +36,11 @@ Do not copy these numbers into a product `capability_score`. They may feed a **d
 
 ## Official harness
 
-`durable-orch grade` is the only scorer. Anyone can re-grade a frozen `trials.jsonl` without API keys or spend.
+`durable-orch grade` is the only scorer. Anyone can re-grade a frozen `trials.jsonl` without API keys or spend. Each trial embeds a text snapshot of the run (`files`) so wiping `runs/` does not change the grade.
 
-A trial record contains: task id, track, model, adapter, harness version, protocol events, artifact hashes, receipt, workspace digest. The oracle reads the run directory plus that record. It does not call a model.
+A trial record contains: task id, track, model, adapter, harness version, protocol events, artifact hashes, receipt, workspace digest, and file snapshot. The oracle reads a materialized run plus that record. It does not call a model. Cards take `harness_version` from the trials, not from the grading install.
+
+Public core tasks inject a per-run `nonce` into selected seed files. Outputs that do not copy that nonce fail. Protocol events are still agent-authored in v0.1 — a model that has this repo can emit the vocabulary without a real orchestrator. Treat live cards as same-test evidence, not as an anti-cheat contest, until a later harness-sealed writer exists.
 
 ## Slices
 

@@ -3,5 +3,10 @@
   "track": "worker",
   "slice": "core",
   "title": "Consume a materialized discovery instead of inventing an API",
-  "timeout_seconds": 30
+  "timeout_seconds": 30,
+  "bind": {
+    "file": "state/discoveries/api_shape.json",
+    "field": "nonce",
+    "require_in": ["src/adapter.py"]
+  }
 }
