@@ -73,6 +73,20 @@ def test_kill_resume_pass_is_a_real_harness_kill(tmp_path: Path) -> None:
         assert trial.artifact_hashes[relative] == digest
 
 
+def test_kill_resume_pass_with_relative_runs_root(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    task = get_task("h_kill_resume")
+    trial, grade = run_task(
+        task,
+        adapter_name="scripted",
+        model="scripted-pass",
+        runs_root=Path("runs"),
+        adapter_kwargs={"persona": "pass"},
+    )
+    assert grade.passed
+    assert any(event.type == "harness_killed" for event in trial.events)
+
+
 def test_kill_resume_fail_never_sees_a_kill(tmp_path: Path) -> None:
     task = get_task("h_kill_resume")
     trial, grade = run_task(

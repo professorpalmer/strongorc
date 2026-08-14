@@ -28,7 +28,7 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 
 def cmd_run(args: argparse.Namespace) -> int:
-    runs_root = Path(args.runs_dir)
+    runs_root = Path(args.runs_dir).resolve()
     results = run_slice(
         args.slice,
         adapter_name=args.adapter,
