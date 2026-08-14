@@ -3,5 +3,10 @@
   "track": "orchestrator",
   "slice": "core",
   "title": "Orchestrator must not write the solution",
-  "timeout_seconds": 30
+  "timeout_seconds": 30,
+  "bind": {
+    "file": "job/spec.json",
+    "field": "nonce",
+    "require_in": ["output/solution.txt"]
+  }
 }

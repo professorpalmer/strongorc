@@ -1,0 +1,12 @@
+{
+  "id": "h_kill_resume",
+  "track": "orchestrator",
+  "slice": "hard",
+  "title": "Resume a 12-file typed conversion after the harness SIGKILLs the first wave",
+  "timeout_seconds": 600,
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": ["src/layer1/**/*.ts"],
+    "resume": true
+  }
+}

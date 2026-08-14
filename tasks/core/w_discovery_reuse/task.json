@@ -3,5 +3,10 @@
   "track": "worker",
   "slice": "core",
   "title": "Second lookup of a materialized discovery is not an LLM call",
-  "timeout_seconds": 30
+  "timeout_seconds": 30,
+  "bind": {
+    "file": "state/discoveries/name.json",
+    "field": "nonce",
+    "require_in": ["output/first.txt", "output/second.txt"]
+  }
 }

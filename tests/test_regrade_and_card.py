@@ -1,8 +1,9 @@
+import shutil
 from pathlib import Path
 
-from durable_orch_bench.cards import build_card
-from durable_orch_bench.grade import grade_trial
-from durable_orch_bench.harness import read_trials, run_slice, write_trials
+from strongorc.cards import build_card
+from strongorc.grade import grade_trial
+from strongorc.harness import read_trials, run_slice, write_trials
 
 
 def test_regrade_matches_live_and_needs_no_adapter(tmp_path: Path) -> None:
@@ -17,7 +18,9 @@ def test_regrade_matches_live_and_needs_no_adapter(tmp_path: Path) -> None:
     live = [grade.passed for _, grade in results]
     frozen = tmp_path / "trials.jsonl"
     write_trials(frozen, trials)
+    shutil.rmtree(tmp_path / "runs")
     reloaded = read_trials(frozen)
+    assert all(trial.files for trial in reloaded)
     regraded = [grade_trial(trial).passed for trial in reloaded]
     assert regraded == live
     assert all(regraded)

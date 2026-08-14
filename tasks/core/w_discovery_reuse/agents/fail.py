@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from durable_orch_bench.protocol import emit, write_receipt
+from strongorc.protocol import emit, write_receipt
 
 run_dir = Path(RUN_DIR)
 model = MODEL
@@ -8,9 +8,9 @@ out = run_dir / "output"
 out.mkdir(parents=True, exist_ok=True)
 
 emit(run_dir, "llm_call", purpose="first")
-(out / "first.txt").write_text("DurableOrch\n", encoding="utf-8")
+(out / "first.txt").write_text("StrongOrc\n", encoding="utf-8")
 emit(run_dir, "llm_call", purpose="second")
-(out / "second.txt").write_text("DurableOrch\n", encoding="utf-8")
+(out / "second.txt").write_text("StrongOrc\n", encoding="utf-8")
 emit(run_dir, "job_completed")
 write_receipt(
     run_dir,

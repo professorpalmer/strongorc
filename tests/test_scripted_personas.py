@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from durable_orch_bench.harness import ephemeral_runs_root, run_slice
+from strongorc.harness import ephemeral_runs_root, run_slice
 
 EXPECTED_FAIL_CHECK = {
     "o_kill_resume": "event:resumed_from_checkpoint",
     "o_dead_swarm": "honest_terminal_status",
-    "o_planner_plays": "worker_wrote_solution",
+    "o_planner_plays": "event:worker_started",
     "o_wave_boundary": "verified_before_wave2",
     "o_lease_conflict": "absent:shared/cell.txt",
     "o_receipt_honesty": "usd_positive",

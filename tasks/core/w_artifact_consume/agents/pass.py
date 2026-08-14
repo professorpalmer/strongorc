@@ -1,15 +1,19 @@
+import json
 from pathlib import Path
 
-from durable_orch_bench.protocol import emit, write_receipt
+from strongorc.protocol import emit, write_receipt
 
 run_dir = Path(RUN_DIR)
 model = MODEL
 src = run_dir / "src"
 src.mkdir(parents=True, exist_ok=True)
 
+shape = json.loads((run_dir / "state" / "discoveries" / "api_shape.json").read_text(encoding="utf-8"))
 emit(run_dir, "artifact_consumed", path="state/discoveries/api_shape.json")
+args = ", ".join(shape["args"])
 (src / "adapter.py").write_text(
-    "def add(x, y) -> int:\n    return x + y\n",
+    f"def {shape['function']}({args}) -> {shape['returns']}:\n"
+    f"    return x + y  # nonce {shape['nonce']}\n",
     encoding="utf-8",
 )
 emit(run_dir, "job_completed")

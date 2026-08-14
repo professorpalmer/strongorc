@@ -1,0 +1,7 @@
+{
+  "id": "h_lease_tree",
+  "track": "orchestrator",
+  "slice": "hard",
+  "title": "Two leased trees plus a shared index, no CONFLICT",
+  "timeout_seconds": 600
+}

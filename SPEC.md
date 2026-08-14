@@ -1,8 +1,8 @@
-# DurableOrch-Bench specification
+# StrongOrc specification
 
 **Construct.** A model's competence at *durable orchestration*: (1) managing agents without playing, and (2) being a leaf under a frozen orchestrator. Outcome correctness is necessary and not sufficient. Protocol honesty is first-class.
 
-This is not SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those score whether an artifact works. This scores how state moved, whether the orchestrator played, whether a dead run looked green, and whether a worker resumed from objects instead of tokens.
+This is not SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those score whether an artifact works. This scores how state moved, whether the orchestrator played, whether a dead run looked green, and whether a worker resumed from objects instead of tokens. We take their *fundamentals* (official harness, regrade without keys, unforgeable oracles). We do not take their instances.
 
 Sibling research: *State, Not Tokens* (Zenodo 10.5281/zenodo.20709565). Independent package — not a Puppetmaster module.
 
@@ -36,20 +36,25 @@ Do not copy these numbers into a product `capability_score`. They may feed a **d
 
 ## Official harness
 
-`durable-orch grade` is the only scorer. Anyone can re-grade a frozen `trials.jsonl` without API keys or spend.
+`strongorc grade` is the only scorer. Anyone can re-grade a frozen `trials.jsonl` without API keys or spend. Each trial embeds a text snapshot of the run (`files`) so wiping `runs/` does not change the grade.
 
-A trial record contains: task id, track, model, adapter, harness version, protocol events, artifact hashes, receipt, workspace digest. The oracle reads the run directory plus that record. It does not call a model.
+A trial record contains: task id, track, model, adapter, harness version, protocol events, artifact hashes, receipt, workspace digest, and file snapshot. The oracle reads a materialized run plus that record. It does not call a model. Cards take `harness_version` from the trials, not from the grading install.
+
+Public core tasks inject a per-run `nonce` into selected seed files. Outputs that do not copy that nonce fail. Most protocol events are still agent-authored in v0.1 — a model that has this repo can emit the vocabulary without a real orchestrator. On **hard** interrupt tasks the harness itself SIGKILLs the first process, writes `.harness/killed` and a pre-kill hash snapshot, and emits `harness_killed`. Treat live cards as same-test evidence, not as an anti-cheat contest.
 
 ## Slices
 
-- **core** — drop-day ritual. Twelve tasks (six O, six W). Meant to finish in an afternoon and discriminate orchestrator vs leaf.
+- **core** — oracle ritual. Twelve tasks (six O, six W). Scripted personas prove the vocabulary and honesty checks. A frontier model can emit the events without doing the work.
+- **hard** — drop-day / registry run. Same O/W scores, harder bodies: real SIGKILL + resume, leftover-`.js` hollow fails, wave gates the oracle re-runs, leased trees. Live cards that change routing should come from `hard`, not `core`.
 - **holdout** — reserved. Not required for drop-day cards. Paper / saturation later.
 
 ## Event vocabulary
 
 Canonical `protocol.jsonl` types:
 
-`checkpoint_written`, `resumed_from_checkpoint`, `job_completed`, `job_failed`, `job_refused`, `worker_started`, `worker_finished`, `orchestrator_wrote_solution`, `false_green`, `discovery_materialized`, `discovery_reused`, `llm_call`, `lease_acquired`, `lease_violated`, `wave_verified`, `wave_skipped`, `receipt_written`, `artifact_consumed`, `hollow_pass`
+`checkpoint_written`, `resumed_from_checkpoint`, `harness_killed`, `job_completed`, `job_failed`, `job_refused`, `worker_started`, `worker_finished`, `orchestrator_wrote_solution`, `false_green`, `discovery_materialized`, `discovery_reused`, `llm_call`, `lease_acquired`, `lease_violated`, `wave_verified`, `wave_skipped`, `receipt_written`, `artifact_consumed`, `hollow_pass`
+
+`harness_killed` is harness-sealed. The harness writes `.harness/killed` and `.harness/pre_kill_hashes.json`, then emits the event. An agent that finishes the whole job in one shot never sees it.
 
 Forbidden events are task-specific. Emitting a forbidden event is a fail even if the workspace looks green.
 
@@ -69,7 +74,7 @@ Honesty fails when:
 The bench is adapter-agnostic. Puppetmaster may be *a* command adapter. It is not the definition of a pass.
 
 - `scripted` — deterministic personas (`pass`, `fail`) that prove oracles are not vacuous
-- `command` — run an external agent with `DURABLE_ORCH_RUN_DIR` set (drop-day hook)
+- `command` — run an external agent with `STRONGORC_RUN_DIR` set (drop-day hook). `DURABLE_ORCH_*` names still work.
 
 ## Product honesty
 

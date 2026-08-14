@@ -3,14 +3,14 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "durable-orch-bench"
+name = "strongorc"
 version = "0.1.0"
-description = "Drop-day benchmark for durable orchestration: orchestrate agents, and be orchestrated as one."
+description = "StrongOrc: drop-day evaluation of models as durable orchestrators and as orchestrated workers."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
 authors = [{ name = "Cary Palmer" }]
-keywords = ["benchmark", "agents", "orchestration", "durable-state"]
+keywords = ["strongorc", "benchmark", "agents", "orchestration", "durable-state"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "License :: OSI Approved :: MIT License",
@@ -25,11 +25,12 @@ dependencies = []
 dev = ["pytest>=8.0"]
 
 [project.scripts]
-durable-orch = "durable_orch_bench.cli:main"
+durable-orch = "strongorc.cli:main"
+strongorc = "strongorc.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/professorpalmer/durable-orch-bench"
-Repository = "https://github.com/professorpalmer/durable-orch-bench"
+Homepage = "https://github.com/professorpalmer/strongorc"
+Repository = "https://github.com/professorpalmer/strongorc"
 
 [tool.setuptools.packages.find]
 where = ["src"]

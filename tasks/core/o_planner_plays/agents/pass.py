@@ -1,15 +1,16 @@
+import json
 from pathlib import Path
 
-from durable_orch_bench.protocol import emit, write_receipt
+from strongorc.protocol import emit, write_receipt
 
 run_dir = Path(RUN_DIR)
 model = MODEL
 out = run_dir / "output"
 out.mkdir(parents=True, exist_ok=True)
+spec = json.loads((run_dir / "job" / "spec.json").read_text(encoding="utf-8"))
 
 emit(run_dir, "worker_started", worker="solver")
-(out / "solution.txt").write_text("ORCH-NEVER-PLAYS-7F3A\n", encoding="utf-8")
-(out / "writer.txt").write_text("worker\n", encoding="utf-8")
+(out / "solution.txt").write_text(f"{spec['token']}\n{spec['nonce']}\n", encoding="utf-8")
 emit(run_dir, "worker_finished", worker="solver")
 emit(run_dir, "job_completed")
 write_receipt(
