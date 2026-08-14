@@ -1,8 +1,8 @@
-# DurableOrch-Bench
+<p align="center"><img src="brand/strongorc.svg" width="200" alt="StrongOrc"></p>
+<h1 align="center">StrongOrc</h1>
+<p align="center">Can a model manage agents without playing, and can it be a durable worker under a frozen orchestrator?</p>
 
-Drop-day benchmark for **durable orchestration**: can a model manage agents without playing, and can it be a durable worker under a frozen orchestrator?
-
-This is a sibling of the [State, Not Tokens](https://github.com/professorpalmer/durable-state-vs-context) research line. It is **not** a Puppetmaster module and not a remake of SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those score whether an artifact works. This scores protocol plus outcome.
+This is a sibling of the [State, Not Tokens](https://github.com/professorpalmer/durable-state-vs-context) research line. It is **not** a Puppetmaster module and not a remake of SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those benches lent *method* (hidden tests, frozen predictions, containers, repo-scale oracles). The tasks are ours: kill-resume, dead-swarm, planner-plays, wave-boundary, leases, receipts, artifact consume, hollow pass, worker resume, lease respect, soft-refuse, discovery reuse. **core** is the oracle ritual. **hard** is the drop-day / registry run — real SIGKILL, leftover-`.js` hollow fails, and Node tests the oracle re-runs.
 
 Construct: [SPEC.md](SPEC.md).
 
@@ -19,9 +19,9 @@ A card reports four fields, never a single Elo:
 
 Do not copy these into a product `capability_score`. Use them as a dated overlay after a same-test run on this harness.
 
-## Core slice (drop-day)
+## Core slice (oracle ritual)
 
-Twelve tasks. Scripted personas prove the oracles: `pass` clears all twelve; `fail` fails all twelve for the intended reason.
+Twelve tasks. Scripted personas prove the oracles: `pass` clears all twelve; `fail` fails all twelve for the intended reason. A live model can still emit the event vocabulary without doing the work. Do not publish routing cards from `core` alone.
 
 **Orchestrator**
 
@@ -45,6 +45,27 @@ Twelve tasks. Scripted personas prove the oracles: `pass` clears all twelve; `fa
 | `w_soft_refuse` | Fakes success when the provider is missing |
 | `w_discovery_reuse` | Second lookup is another LLM call |
 
+## Hard slice (drop-day / own-use registry)
+
+Four tasks with real trees. The harness SIGKILLs `h_kill_resume` after layer 1 is checkpointed, then respawns with `STRONGORC_RESUME=1`. Oracles re-run Node (`--experimental-strip-types`). Finishing the whole job in one shot, leaving a shadowed `.js`, or starting wave 2 before a real wave-1 test passes are fails.
+
+| Id | Track | What it catches |
+| --- | --- | --- |
+| `h_kill_resume` | O | Converts all 12 files before the kill; no resume; layer-1 hashes drift |
+| `h_hollow_migration` | W | Writes `.ts` but leaves the `.js` |
+| `h_wave_gate` | O | Implements `mul` before `test/wave1.mts` exits 0 |
+| `h_lease_tree` | O | Two workers collide on `src/shared/CONFLICT` |
+
+```bash
+strongorc run --slice hard --adapter scripted --persona pass --out runs/hard-pass.jsonl
+strongorc run --slice hard --adapter command \
+  --cmd 'your-agent --run-dir "$STRONGORC_RUN_DIR"' \
+  --model grok-4.6 --out cards/raw/grok-4.6-hard.jsonl
+strongorc card cards/raw/grok-4.6-hard.jsonl --model grok-4.6 --slice hard --out cards/grok-4.6-hard.json
+```
+
+Needs Node 22+ on the grading machine.
+
 ## Install
 
 ```bash
@@ -56,33 +77,36 @@ pip install -e ".[dev]"
 ## Prove the oracles (no model, no keys)
 
 ```bash
-durable-orch run --slice core --adapter scripted --persona pass --out runs/pass.jsonl
-durable-orch run --slice core --adapter scripted --persona fail --out runs/fail.jsonl
-durable-orch grade runs/pass.jsonl
-durable-orch card runs/pass.jsonl --model scripted-pass --out cards/scripted-pass.json
+strongorc run --slice core --adapter scripted --persona pass --out runs/pass.jsonl
+strongorc run --slice hard --adapter scripted --persona pass --out runs/hard-pass.jsonl
+strongorc run --slice core --adapter scripted --persona fail --out runs/fail.jsonl
+strongorc grade runs/pass.jsonl
+strongorc card runs/hard-pass.jsonl --model scripted-pass --slice hard --out cards/scripted-hard-pass.json
 pytest
 ```
 
-Re-grade is offline. `durable-orch grade` never calls a model.
+Re-grade is offline. `strongorc grade` never calls a model.
 
 ## Drop-day (live model)
 
 Point an external agent at a task workspace. The official hook is the `command` adapter:
 
 ```bash
-durable-orch run --slice core --adapter command \
-  --cmd 'your-agent --run-dir "$DURABLE_ORCH_RUN_DIR"' \
+strongorc run --slice hard --adapter command \
+  --cmd 'your-agent --run-dir "$STRONGORC_RUN_DIR"' \
   --model grok-4.6 --out cards/raw/grok-4.6.jsonl
-durable-orch card cards/raw/grok-4.6.jsonl --model grok-4.6 --out cards/grok-4.6.json
+strongorc card cards/raw/grok-4.6.jsonl --model grok-4.6 --slice hard --out cards/grok-4.6.json
 ```
 
-The agent must write `protocol.jsonl` and `receipts/job.json` into `$DURABLE_ORCH_RUN_DIR` and leave the workspace in the required state. Event vocabulary and the nonce-bind rule are in [SPEC.md](SPEC.md) and [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md).
+The agent must write `protocol.jsonl` and `receipts/job.json` into `$STRONGORC_RUN_DIR` and leave the workspace in the required state. Event vocabulary and the nonce-bind rule are in [SPEC.md](SPEC.md) and [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md). `DURABLE_ORCH_*` env names still work as aliases.
 
 ## Repository layout
 
 ```
-src/durable_orch_bench/   official harness
-tasks/core/               drop-day slice
+brand/                    StrongOrc mark (SVG + PNG)
+src/strongorc/            official harness
+tasks/core/               oracle ritual (twelve toys)
+tasks/hard/               drop-day / registry run
 tasks/holdout/            reserved
 cards/                    published dated cards
 tests/                    oracle non-vacuity + regrade

@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from durable_orch_bench.oracle_lib import file_absent, file_contains, file_exists, forbids_event, has_event
-from durable_orch_bench.schema import CheckResult, TrialRecord
+from strongorc.oracle_lib import file_absent, file_contains, file_exists, forbids_event, has_event
+from strongorc.schema import CheckResult, TrialRecord
 
 
 def check(run_dir: Path, trial: TrialRecord) -> list[CheckResult]:

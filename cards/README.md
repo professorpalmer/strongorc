@@ -1,6 +1,6 @@
 # Cards
 
-Dated JSON scorecards from `durable-orch card`.
+Dated JSON scorecards from `strongorc card`.
 
 A card is earned on this harness only. Do not copy `orch_score` / `leaf_score` into a product `capability_score`. A later overlay may cite `harness_version`, `date`, and this file.
 

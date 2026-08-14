@@ -1,9 +1,9 @@
 import shutil
 from pathlib import Path
 
-from durable_orch_bench.cards import build_card
-from durable_orch_bench.grade import grade_trial
-from durable_orch_bench.harness import read_trials, run_slice, write_trials
+from strongorc.cards import build_card
+from strongorc.grade import grade_trial
+from strongorc.harness import read_trials, run_slice, write_trials
 
 
 def test_regrade_matches_live_and_needs_no_adapter(tmp_path: Path) -> None:

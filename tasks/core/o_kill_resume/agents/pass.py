@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from durable_orch_bench.protocol import emit, write_receipt
+from strongorc.protocol import emit, write_receipt
 
 run_dir = Path(RUN_DIR)
 model = MODEL

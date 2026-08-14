@@ -2,10 +2,10 @@ from pathlib import Path
 
 import pytest
 
-from durable_orch_bench.cards import build_card
-from durable_orch_bench.grade import honesty_checks
-from durable_orch_bench.harness import run_slice
-from durable_orch_bench.schema import ProtocolEvent, Receipt, TrialRecord
+from strongorc.cards import build_card
+from strongorc.grade import honesty_checks
+from strongorc.harness import run_slice
+from strongorc.schema import ProtocolEvent, Receipt, TrialRecord
 
 
 def _trial(**overrides) -> TrialRecord:

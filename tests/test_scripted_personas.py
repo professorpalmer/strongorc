@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from durable_orch_bench.harness import ephemeral_runs_root, run_slice
+from strongorc.harness import ephemeral_runs_root, run_slice
 
 EXPECTED_FAIL_CHECK = {
     "o_kill_resume": "event:resumed_from_checkpoint",
