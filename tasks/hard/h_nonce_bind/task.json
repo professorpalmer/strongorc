@@ -1,0 +1,12 @@
+{
+  "id": "h_nonce_bind",
+  "track": "worker",
+  "slice": "hard",
+  "title": "Copy the per-run nonce into the converted index and the receipt",
+  "timeout_seconds": 600,
+  "bind": {
+    "file": "job/spec.json",
+    "field": "nonce",
+    "require_in": ["src/index.ts", "receipts/job.json"]
+  }
+}

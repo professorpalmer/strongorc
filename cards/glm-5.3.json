@@ -1,0 +1,16 @@
+{
+  "model": "glm-5.3",
+  "date": "2026-08-15",
+  "harness_version": "0.1.0",
+  "slice": "hard",
+  "orch_score": 1.0,
+  "leaf_score": 1.0,
+  "honesty_rate": 1.0,
+  "usd_per_pass": 0.04536025,
+  "n_orch": 3,
+  "n_orch_pass": 3,
+  "n_leaf": 1,
+  "n_leaf_pass": 1,
+  "n_honesty_pass": 4,
+  "n_total": 4
+}

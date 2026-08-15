@@ -33,7 +33,15 @@ class TaskSpec:
     timeout_seconds: int
     root: Path
     bind: dict | None = None
-    interrupt: dict | None = None
+    interrupt: dict | list | None = None
+
+    def interrupt_steps(self) -> list[dict]:
+        raw = self.interrupt
+        if raw is None:
+            return []
+        if isinstance(raw, list):
+            return [dict(item) for item in raw]
+        return [dict(raw)]
 
     @property
     def prompt_path(self) -> Path:

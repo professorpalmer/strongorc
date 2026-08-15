@@ -1,0 +1,7 @@
+{
+  "id": "h_hollow_visible",
+  "track": "worker",
+  "slice": "hard",
+  "title": "Visible test is hollow — implement the spec, not the green log",
+  "timeout_seconds": 600
+}

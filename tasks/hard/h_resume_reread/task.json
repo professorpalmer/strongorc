@@ -1,0 +1,20 @@
+{
+  "id": "h_resume_reread",
+  "track": "orchestrator",
+  "slice": "hard",
+  "title": "Spec rewrites after SIGKILL — resume must not replay the first read",
+  "timeout_seconds": 600,
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": ["job/spec.json"],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "scale": "n * 3"
+      }
+    },
+    "plant": {
+      "state/discoveries/scale.json": "{\n  \"scale\": \"n * 2\",\n  \"cached_at\": \"pre-kill\"\n}\n"
+    }
+  }
+}

@@ -30,6 +30,15 @@ def event_count_at_most(trial: TrialRecord, name: str, maximum: int) -> CheckRes
     )
 
 
+def event_count_at_least(trial: TrialRecord, name: str, minimum: int) -> CheckResult:
+    count = event_types(trial.events).count(name)
+    return CheckResult(
+        f"event_count:{name}>={minimum}",
+        count >= minimum,
+        f"saw {count}",
+    )
+
+
 def file_exists(run_dir: Path, relative: str) -> CheckResult:
     path = run_dir / relative
     return CheckResult(f"exists:{relative}", path.is_file(), "" if path.is_file() else "missing")
@@ -79,6 +88,14 @@ def no_any_in_ts(run_dir: Path, under: str = "src") -> CheckResult:
     return CheckResult("no_any", hits == [], f"type escape in {hits}" if hits else "")
 
 
+def hidden_node_test(run_dir: Path, hidden_test: Path) -> CheckResult:
+    dest = run_dir / ".harness" / f"hidden_{hidden_test.name}"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(hidden_test.read_text(encoding="utf-8"), encoding="utf-8")
+    result = node_test_passes(run_dir, dest.relative_to(run_dir).as_posix())
+    return CheckResult(f"hidden:{hidden_test.name}", result.passed, result.detail)
+
+
 def node_test_passes(run_dir: Path, relative: str) -> CheckResult:
     try:
         completed = run_node_test(run_dir, relative)
@@ -91,27 +108,28 @@ def node_test_passes(run_dir: Path, relative: str) -> CheckResult:
     return CheckResult(f"node:{relative}", ok, detail)
 
 
-def pre_kill_hashes_match(run_dir: Path) -> CheckResult:
-    snap = run_dir / ".harness" / "pre_kill_hashes.json"
+def snapshot_hashes_match(run_dir: Path, relative: str, name: str = "") -> CheckResult:
+    snap = run_dir / relative
+    label = name or f"snapshot:{relative}"
     if not snap.is_file():
-        return CheckResult("pre_kill_hashes_match", False, "missing snapshot")
+        return CheckResult(label, False, "missing snapshot")
     expected = json.loads(snap.read_text(encoding="utf-8"))
     if not expected:
-        return CheckResult("pre_kill_hashes_match", False, "empty snapshot")
+        return CheckResult(label, False, "empty snapshot")
     mismatches: list[str] = []
-    for relative, digest in expected.items():
-        path = run_dir / relative
+    for path_name, digest in expected.items():
+        path = run_dir / path_name
         if not path.is_file():
-            mismatches.append(f"missing {relative}")
+            mismatches.append(f"missing {path_name}")
             continue
         actual = hashlib.sha256(path.read_bytes()).hexdigest()
         if actual != digest:
-            mismatches.append(relative)
-    return CheckResult(
-        "pre_kill_hashes_match",
-        not mismatches,
-        ", ".join(mismatches) if mismatches else "",
-    )
+            mismatches.append(path_name)
+    return CheckResult(label, not mismatches, ", ".join(mismatches) if mismatches else "")
+
+
+def pre_kill_hashes_match(run_dir: Path) -> CheckResult:
+    return snapshot_hashes_match(run_dir, ".harness/pre_kill_hashes.json", "pre_kill_hashes_match")
 
 
 def event_order(trial: TrialRecord, earlier: str, later: str, name: str) -> CheckResult:

@@ -1,0 +1,25 @@
+{
+  "model": "glm-5.3",
+  "date": "2026-08-15",
+  "harness_version": "0.1.0",
+  "slice": "hard",
+  "adapter": "command",
+  "agent": "examples/zcode_agent.py",
+  "endpoint": "https://api.z.ai/api/coding/paas/v4/chat/completions",
+  "reasoning_effort": "high",
+  "key_source": "marionette ~/.pmharness/state/keys.json zai",
+  "cost_source": "marionette_plan_nominal",
+  "input_per_mtok_usd": 1.0,
+  "output_per_mtok_usd": 3.5,
+  "cost_note": "GLM-5.3 has no published list price. usd_per_pass uses receipt usd the model wrote from measured_usage. Measured API tokens after the receipt call are higher.",
+  "receipt_usd_sum": 0.181441,
+  "measured_usd_sum": 0.2160995,
+  "elapsed_seconds": 412,
+  "registry": {
+    "do_not_copy_into_capability_score": true,
+    "dated_overlay": "After a same-test StrongOrc hard run on harness 0.1.0 (2026-08-15), glm-5.3 passed 3/3 orchestrator and 1/1 worker. Overlay only. Do not write Puppetmaster capability_score from this card."
+  },
+  "protocol_notes": [
+    "h_kill_resume: checkpoint file triggered a live SIGKILL; layer-1 hashes matched; checkpoint_written was emitted on the resume spawn, not the first spawn. Oracle only requires the event to exist."
+  ]
+}

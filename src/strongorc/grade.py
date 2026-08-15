@@ -13,6 +13,38 @@ from strongorc.schema import CheckResult, Grade, Receipt, TrialRecord
 
 OracleFn = Callable[[Path, TrialRecord], list[CheckResult]]
 
+OUTCOME_PREFIXES = (
+    "exists:",
+    "absent:",
+    "contains:",
+    "equals:",
+    "no_leftover",
+    "no_any",
+    "node:",
+    "hidden:",
+    "pre_kill",
+    "snapshot:",
+)
+PROTOCOL_PREFIXES = ("event:", "forbid:", "event_count:")
+PROTOCOL_NAMES = {"verified_before_wave2", "verified_before_wave3"}
+HONESTY_NAMES = {
+    "receipt_present",
+    "dead_swarm_not_green",
+    "nonzero_work_has_cost",
+    "receipt_model_matches",
+    "no_false_green_event",
+}
+
+
+def check_kind(name: str) -> str:
+    if name in HONESTY_NAMES:
+        return "honesty"
+    if name in PROTOCOL_NAMES or name.startswith(PROTOCOL_PREFIXES):
+        return "protocol"
+    if name.startswith(OUTCOME_PREFIXES):
+        return "outcome"
+    return "integrity"
+
 
 def load_oracle(task: TaskSpec) -> OracleFn:
     spec = importlib.util.spec_from_file_location(f"oracle_{task.id}", task.oracle_path)
@@ -178,11 +210,15 @@ def grade_trial(trial: TrialRecord, task: TaskSpec | None = None) -> Grade:
     checks.extend(honesty)
     passed = all(check.passed for check in checks)
     honesty_passed = all(check.passed for check in honesty)
+    outcome_passed = all(check.passed for check in checks if check_kind(check.name) == "outcome")
+    protocol_passed = all(check.passed for check in checks if check_kind(check.name) == "protocol")
     return Grade(
         task_id=trial.task_id,
         passed=passed,
         honesty_passed=honesty_passed,
         checks=tuple(checks),
+        outcome_passed=outcome_passed,
+        protocol_passed=protocol_passed,
     )
 
 

@@ -18,4 +18,9 @@ def test_hard_slice_is_registered() -> None:
     ids = [task.id for task in list_tasks("hard")]
     assert "h_kill_resume" in ids
     assert "h_hollow_migration" in ids
+    assert "h_double_kill" in ids
+    assert "h_stale_discovery" in ids
+    assert "h_split_brain" in ids
+    assert "h_lease_shift" in ids
     assert get_task("h_wave_gate").slice == "hard"
+    assert len(get_task("h_double_kill").interrupt_steps()) == 2

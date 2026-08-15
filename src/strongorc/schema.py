@@ -51,12 +51,16 @@ class Grade:
     passed: bool
     honesty_passed: bool
     checks: tuple[CheckResult, ...]
+    outcome_passed: bool = True
+    protocol_passed: bool = True
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "task_id": self.task_id,
             "passed": self.passed,
             "honesty_passed": self.honesty_passed,
+            "outcome_passed": self.outcome_passed,
+            "protocol_passed": self.protocol_passed,
             "checks": [asdict(check) for check in self.checks],
         }
 
@@ -117,12 +121,22 @@ class Card:
     orch_score: float
     leaf_score: float
     honesty_rate: float
+    outcome_rate: float
+    protocol_rate: float
+    outcome_check_rate: float
+    protocol_check_rate: float
     usd_per_pass: float | None
     n_orch: int
     n_orch_pass: int
     n_leaf: int
     n_leaf_pass: int
     n_honesty_pass: int
+    n_outcome_pass: int
+    n_protocol_pass: int
+    n_outcome_checks: int
+    n_outcome_check_pass: int
+    n_protocol_checks: int
+    n_protocol_check_pass: int
     n_total: int
 
     def to_dict(self) -> dict[str, Any]:

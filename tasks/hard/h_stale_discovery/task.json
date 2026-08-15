@@ -1,0 +1,7 @@
+{
+  "id": "h_stale_discovery",
+  "track": "worker",
+  "slice": "hard",
+  "title": "Ignore a stale discovery — live spec says scale is n*3",
+  "timeout_seconds": 600
+}

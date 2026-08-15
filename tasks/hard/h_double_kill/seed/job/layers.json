@@ -1,0 +1,7 @@
+{
+  "layers": [
+    {"id": "layer1", "files": ["src/layer1/alpha.js", "src/layer1/beta.js", "src/layer1/gamma.js", "src/layer1/delta.js"]},
+    {"id": "layer2", "files": ["src/layer2/echo.js", "src/layer2/foxtrot.js", "src/layer2/golf.js", "src/layer2/hotel.js"]},
+    {"id": "layer3", "files": ["src/layer3/india.js", "src/layer3/juliet.js", "src/layer3/kilo.js", "src/layer3/lima.js"]}
+  ]
+}
