@@ -1,0 +1,12 @@
+{
+  "leases": [
+    {
+      "worker": "a",
+      "path": "src/alpha"
+    },
+    {
+      "worker": "b",
+      "path": "src/beta"
+    }
+  ]
+}

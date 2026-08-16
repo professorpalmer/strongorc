@@ -1,0 +1,17 @@
+{
+  "id": "f_layer_hash_freeze",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Resume must not rewrite layer 1 \u2014 pre-kill hashes are sealed",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/layer1/**/*.ts"
+    ],
+    "resume": true
+  }
+}

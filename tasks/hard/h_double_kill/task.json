@@ -2,18 +2,25 @@
   "id": "h_double_kill",
   "track": "orchestrator",
   "slice": "hard",
-  "title": "Survive two live SIGKILLs — layer 2 is not the finish line",
+  "title": "Survive two live SIGKILLs \u2014 layer 2 is not the finish line",
   "timeout_seconds": 600,
   "interrupt": [
     {
       "when_file": "state/checkpoint1.json",
-      "snapshot_globs": ["src/layer1/**/*.ts"],
+      "snapshot_globs": [
+        "src/layer1/**/*.ts"
+      ],
       "resume": true
     },
     {
       "when_file": "state/checkpoint2.json",
-      "snapshot_globs": ["src/layer2/**/*.ts"],
+      "snapshot_globs": [
+        "src/layer2/**/*.ts"
+      ],
       "resume": true
     }
+  ],
+  "facets": [
+    "resume"
   ]
 }

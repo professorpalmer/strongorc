@@ -1,0 +1,10 @@
+{
+  "id": "f_lease_only_alpha",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Your lease is src/alpha \u2014 do not convert beta",
+  "timeout_seconds": 600,
+  "facets": [
+    "lease"
+  ]
+}

@@ -1,0 +1,18 @@
+import time
+from pathlib import Path
+
+from strongorc.agentlib import copy_reference, finish, write_checkpoint
+from strongorc.env import getenv
+from strongorc.protocol import emit
+
+run_dir = Path(RUN_DIR)
+model = MODEL
+if getenv("RESUME") != "1":
+    emit(run_dir, "artifact_consumed", path="state/discoveries/clock.json")
+    write_checkpoint(run_dir, "checkpoint.json", {"phase": 1})
+    time.sleep(3600)
+else:
+    emit(run_dir, "resumed_from_checkpoint")
+    emit(run_dir, "artifact_consumed", path="state/discoveries/clock.json")
+    copy_reference(run_dir, Path(__file__), ["slotbook"])
+    finish(run_dir, model, workers_ran=1, usd=0.33)

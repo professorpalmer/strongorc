@@ -1,0 +1,10 @@
+{
+  "id": "f_join_barrier",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Join stays sealed until both worker checkpoints exist",
+  "timeout_seconds": 600,
+  "facets": [
+    "wave"
+  ]
+}

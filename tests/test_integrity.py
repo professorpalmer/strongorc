@@ -79,3 +79,13 @@ def test_card_uses_trial_harness_version(tmp_path: Path) -> None:
     trials[0].harness_version = "0.0.0"
     with pytest.raises(ValueError, match="mixed harness versions"):
         build_card(trials, grades, model="scripted-pass", slice_name="core")
+
+
+def test_skip_artifact_drops_venv_and_pyc() -> None:
+    from strongorc.grade import skip_artifact
+
+    assert skip_artifact(".venv/bin/python") is True
+    assert skip_artifact("jobnet/__pycache__/scheduler.cpython-314.pyc") is True
+    assert skip_artifact("protocol.jsonl") is True
+    assert skip_artifact(".pytest_cache/v/cache/nodeids") is True
+    assert skip_artifact("jobnet/scheduler.py") is False

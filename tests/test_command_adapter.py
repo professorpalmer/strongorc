@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 from strongorc.catalog import get_task
-from strongorc.harness import run_task
+from strongorc.harness import checkout_root, isolated_runs_root, run_task
 
 DRIVER = """
 import os
@@ -34,3 +34,13 @@ def test_command_adapter_can_drive_a_core_task(tmp_path: Path, monkeypatch) -> N
     )
     assert grade.passed, [check for check in grade.checks if not check.passed]
     assert trial.adapter == "command"
+
+
+def test_command_runs_inside_checkout_are_relocated(tmp_path: Path) -> None:
+    inside = checkout_root() / "runs" / "live-test"
+    jail = isolated_runs_root(inside, "command")
+    assert checkout_root() not in jail.parents
+    assert jail != inside.resolve()
+    outside = (tmp_path / "runs").resolve()
+    assert isolated_runs_root(outside, "command") == outside
+    assert isolated_runs_root(inside, "scripted") == inside.resolve()

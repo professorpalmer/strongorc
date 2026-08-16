@@ -1,0 +1,10 @@
+{
+  "id": "f_two_specs",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "job/spec.old.json is bait \u2014 job/spec.json is live",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery"
+  ]
+}

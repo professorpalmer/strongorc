@@ -3,5 +3,9 @@
   "track": "worker",
   "slice": "hard",
   "title": "Convert a 16-file import chain and replace the hollow any stub",
-  "timeout_seconds": 600
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow",
+    "chain"
+  ]
 }

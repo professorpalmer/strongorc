@@ -3,5 +3,8 @@
   "track": "orchestrator",
   "slice": "hard",
   "title": "Repair a wrong add, then gate two more waves on real tests",
-  "timeout_seconds": 600
+  "timeout_seconds": 600,
+  "facets": [
+    "wave"
+  ]
 }

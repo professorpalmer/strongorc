@@ -7,6 +7,12 @@
   "bind": {
     "file": "job/spec.json",
     "field": "nonce",
-    "require_in": ["src/index.ts", "receipts/job.json"]
-  }
+    "require_in": [
+      "src/index.ts",
+      "receipts/job.json"
+    ]
+  },
+  "facets": [
+    "bind"
+  ]
 }

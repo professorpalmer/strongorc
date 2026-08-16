@@ -15,6 +15,8 @@ Selected tasks inject a per-run `nonce` into a seed JSON file (also copied to `.
 
 ## Environment
 
+Live `command` runs must not see the bench checkout. If `--runs-dir` is inside the repo, the harness relocates it to `~/.strongorc/runs/<name>`. Hidden tests and references are not in the seed.
+
 The harness writes both `STRONGORC_*` and legacy `DURABLE_ORCH_*` names. Read either.
 
 | Variable | Meaning |
@@ -33,7 +35,7 @@ The harness writes both `STRONGORC_*` and legacy `DURABLE_ORCH_*` names. Read ei
 
 On interrupt tasks the harness SIGKILLs after each `when_file` appears (one step, or a chain), writes `.harness/killed` plus `pre_kill_<n>.json`, emits `harness_killed`, then respawns with `STRONGORC_RESUME=1`. An interrupt step may `rewrite`, `plant`, or `delete` files after the kill. Re-read the workspace. Do not replay the first prompt from memory. Do not finish the whole job before the last checkpoint.
 
-The oracle re-runs Node tests on the hard slice, including hidden tests that are not in the seed. Leftover `.js` is a hollow fail. A visible `console.log("ok")` is not a pass.
+The oracle re-runs Node tests on hard and frontier, and hidden pytest on brutal. Hidden tests are not in the seed. A visible `print("ok")` / `console.log("ok")` is not a pass. On brutal, the work is a real Python package. Re-read `job/leases.json` and `job/budget.json` after every interrupt. If `job/cancel.json` appears or `unsafe` is true, refuse.
 
 Forbidden types are task-specific. Emitting a forbidden type fails the trial even if the files look green.
 

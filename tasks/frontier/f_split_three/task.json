@@ -1,0 +1,11 @@
+{
+  "id": "f_split_three",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "README, cache, and spec disagree \u2014 only job/spec.json is live",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery",
+    "hollow"
+  ]
+}

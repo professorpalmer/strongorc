@@ -1,0 +1,10 @@
+{
+  "id": "f_retry_once",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "One worker id may start twice, not three times",
+  "timeout_seconds": 600,
+  "facets": [
+    "budget"
+  ]
+}

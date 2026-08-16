@@ -1,0 +1,11 @@
+{
+  "id": "f_discovery_first",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Materialize the discovery before any worker starts",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery",
+    "wave"
+  ]
+}

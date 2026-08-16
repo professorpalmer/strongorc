@@ -1,0 +1,32 @@
+{
+  "id": "f_spec_on_second_kill",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "The spec only rewrites on the second SIGKILL \u2014 first resume is a decoy",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "mutation"
+  ],
+  "interrupt": [
+    {
+      "when_file": "state/checkpoint1.json",
+      "snapshot_globs": [
+        "src/prep/**/*.ts"
+      ],
+      "resume": true
+    },
+    {
+      "when_file": "state/checkpoint2.json",
+      "snapshot_globs": [
+        "src/prep/**/*.ts"
+      ],
+      "resume": true,
+      "rewrite": {
+        "job/spec.json": {
+          "scale": "n * 9"
+        }
+      }
+    }
+  ]
+}

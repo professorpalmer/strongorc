@@ -1,0 +1,13 @@
+{
+  "id": "b_dag_scheduler",
+  "track": "orchestrator",
+  "slice": "brutal",
+  "title": "jobnet with failing jobs",
+  "timeout_seconds": 1800,
+  "facets": ["wave", "resume", "repo"],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": ["jobnet/**/*.py"],
+    "resume": true
+  }
+}

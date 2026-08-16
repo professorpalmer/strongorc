@@ -1,0 +1,10 @@
+{
+  "id": "f_wave_dag",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "A then B and C, then D \u2014 D stays sealed until both predecessors verify",
+  "timeout_seconds": 600,
+  "facets": [
+    "wave"
+  ]
+}

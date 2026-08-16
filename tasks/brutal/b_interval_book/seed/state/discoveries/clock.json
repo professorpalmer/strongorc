@@ -1,0 +1,5 @@
+{
+  "intervals": "closed [start, end]",
+  "timezone": "naive datetimes are UTC",
+  "dst": "push missing hours forward one hour"
+}

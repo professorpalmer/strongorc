@@ -1,0 +1,29 @@
+{
+  "id": "f_kill_delete_lease",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "A lease disappears after SIGKILL \u2014 do not convert the orphaned tree",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "alpha",
+            "path": "src/alpha"
+          }
+        ]
+      }
+    }
+  }
+}

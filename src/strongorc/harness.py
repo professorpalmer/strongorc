@@ -199,6 +199,7 @@ def run_task(
     runs_root: Path,
     adapter_kwargs: dict | None = None,
 ) -> tuple[TrialRecord, Grade]:
+    runs_root = isolated_runs_root(runs_root, adapter_name)
     run_dir = (Path(runs_root) / task.id).resolve()
     if run_dir.exists():
         shutil.rmtree(run_dir)
@@ -254,3 +255,21 @@ def read_trials(path: Path) -> list[TrialRecord]:
 
 def ephemeral_runs_root() -> Path:
     return Path(tempfile.mkdtemp(prefix="strongorc-"))
+
+
+def checkout_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def is_inside_checkout(path: Path) -> bool:
+    resolved = Path(path).resolve()
+    root = checkout_root()
+    return resolved == root or root in resolved.parents
+
+
+def isolated_runs_root(runs_root: Path, adapter_name: str) -> Path:
+    """Live command agents must not see the bench checkout (hidden tests, references)."""
+    root = Path(runs_root).resolve()
+    if adapter_name != "command" or not is_inside_checkout(root):
+        return root
+    return Path.home() / ".strongorc" / "runs" / root.name

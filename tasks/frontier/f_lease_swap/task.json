@@ -1,0 +1,29 @@
+{
+  "id": "f_lease_swap",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "First lease is east; after SIGKILL only west is leased \u2014 convert both legally",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "west",
+            "path": "src/west"
+          }
+        ]
+      }
+    }
+  }
+}

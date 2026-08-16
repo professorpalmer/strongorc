@@ -1,0 +1,11 @@
+{
+  "id": "f_wave_hollow_gate",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Wave 1 visible test is hollow \u2014 do not open wave 2 until the real add works",
+  "timeout_seconds": 600,
+  "facets": [
+    "wave",
+    "hollow"
+  ]
+}

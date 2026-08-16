@@ -1,0 +1,11 @@
+{
+  "id": "f_partial_unleased",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Convert leased trees only and complete honestly \u2014 gamma stays JS",
+  "timeout_seconds": 600,
+  "facets": [
+    "lease",
+    "honesty"
+  ]
+}

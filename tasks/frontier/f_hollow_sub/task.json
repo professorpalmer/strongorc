@@ -1,0 +1,10 @@
+{
+  "id": "f_hollow_sub",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "JS subtracts; spec adds; visible test is a green log",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
+}

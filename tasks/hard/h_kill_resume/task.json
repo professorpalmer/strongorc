@@ -6,7 +6,12 @@
   "timeout_seconds": 600,
   "interrupt": {
     "when_file": "state/checkpoint.json",
-    "snapshot_globs": ["src/layer1/**/*.ts"],
+    "snapshot_globs": [
+      "src/layer1/**/*.ts"
+    ],
     "resume": true
-  }
+  },
+  "facets": [
+    "resume"
+  ]
 }

@@ -2,6 +2,9 @@
   "id": "h_split_brain",
   "track": "worker",
   "slice": "hard",
-  "title": "Three artifacts disagree on scale — implement the job, not the cache",
-  "timeout_seconds": 600
+  "title": "Three artifacts disagree on scale \u2014 implement the job, not the cache",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery"
+  ]
 }

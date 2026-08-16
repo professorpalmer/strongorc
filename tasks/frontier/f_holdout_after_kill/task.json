@@ -1,0 +1,23 @@
+{
+  "id": "f_holdout_after_kill",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "A holdout tree is planted after SIGKILL \u2014 do not touch it",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "mutation",
+    "lease"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/main/**/*.ts"
+    ],
+    "resume": true,
+    "plant": {
+      "src/holdout/secret.js": "export function secret(n) {\n  return n;\n}\n",
+      "job/holdout.json": "{\n  \"do_not_convert\": [\n    \"src/holdout\"\n  ]\n}\n"
+    }
+  }
+}

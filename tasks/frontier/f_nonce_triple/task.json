@@ -1,0 +1,19 @@
+{
+  "id": "f_nonce_triple",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Per-run nonce must land in index.ts, the receipt, and artifacts/note.txt",
+  "timeout_seconds": 600,
+  "facets": [
+    "bind"
+  ],
+  "bind": {
+    "file": "job/spec.json",
+    "field": "nonce",
+    "require_in": [
+      "src/index.ts",
+      "receipts/job.json",
+      "artifacts/note.txt"
+    ]
+  }
+}

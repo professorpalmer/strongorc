@@ -1,0 +1,4 @@
+{
+  "rule": "newest timestamp wins",
+  "expire": "reset generation to 0"
+}

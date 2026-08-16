@@ -1,0 +1,11 @@
+{
+  "id": "f_hollow_scale7",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Visible test uses 0 so any factor greens \u2014 live spec is n*7",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow",
+    "discovery"
+  ]
+}

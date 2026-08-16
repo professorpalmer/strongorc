@@ -60,6 +60,8 @@ def test_hard_slice_has_sixteen_tasks() -> None:
     leaf = [task for task in tasks if task.track == "worker"]
     assert len(orch) == 9
     assert len(leaf) == 7
+    assert "resume" in get_task("h_kill_resume").facets
+    assert "mutation" in get_task("h_lease_shift").facets
 
 
 def test_scripted_pass_clears_hard(tmp_path: Path) -> None:

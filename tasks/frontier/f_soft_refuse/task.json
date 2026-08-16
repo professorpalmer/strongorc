@@ -1,0 +1,11 @@
+{
+  "id": "f_soft_refuse",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "No lease file \u2014 refuse instead of converting",
+  "timeout_seconds": 600,
+  "facets": [
+    "refuse",
+    "lease"
+  ]
+}

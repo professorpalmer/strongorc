@@ -2,6 +2,9 @@
   "id": "h_worker_cap",
   "track": "orchestrator",
   "slice": "hard",
-  "title": "Honor max_workers=1 — two trees, one worker",
-  "timeout_seconds": 600
+  "title": "Honor max_workers=1 \u2014 two trees, one worker",
+  "timeout_seconds": 600,
+  "facets": [
+    "budget"
+  ]
 }

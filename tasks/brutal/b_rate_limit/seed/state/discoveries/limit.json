@@ -1,0 +1,5 @@
+{
+  "max": 10,
+  "window_seconds": 60,
+  "algorithm": "sliding window"
+}
