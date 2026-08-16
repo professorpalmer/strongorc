@@ -1,0 +1,32 @@
+{
+  "id": "f_kill_shift_spec",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "After SIGKILL, both the lease table and the scale spec rewrite",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "west",
+            "path": "src/west"
+          }
+        ]
+      },
+      "job/spec.json": {
+        "scale": "n * 5"
+      }
+    }
+  }
+}

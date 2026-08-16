@@ -1,0 +1,20 @@
+{
+  "id": "f_poison_checkpoint",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "A lying checkpoint is planted after SIGKILL \u2014 src is not done",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "checkpoint",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/started.json",
+    "snapshot_globs": [],
+    "resume": true,
+    "plant": {
+      "state/checkpoint.json": "{\n  \"last_completed\": \"all\",\n  \"done\": true\n}\n"
+    }
+  }
+}

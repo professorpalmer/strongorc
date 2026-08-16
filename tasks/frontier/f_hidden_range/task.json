@@ -1,0 +1,10 @@
+{
+  "id": "f_hidden_range",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "clamp is [0, 10] in the spec; JS is identity",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
+}

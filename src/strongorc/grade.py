@@ -13,6 +13,90 @@ from strongorc.schema import CheckResult, Grade, Receipt, TrialRecord
 
 OracleFn = Callable[[Path, TrialRecord], list[CheckResult]]
 
+OUTCOME_PREFIXES = (
+    "exists:",
+    "absent:",
+    "contains:",
+    "equals:",
+    "no_leftover",
+    "no_any",
+    "no_ts_escape",
+    "node:",
+    "hidden:",
+    "pytest:",
+    "pre_kill",
+    "snapshot:",
+    "json:",
+    "files:",
+    "behavior:",
+)
+PROTOCOL_PREFIXES = ("event:", "forbid:", "event_count:", "order:")
+PROTOCOL_NAMES = {
+    "verified_before_wave2",
+    "verified_before_wave3",
+    "verified_before_join",
+    "discovery_before_workers",
+    "cancelled_after_kill",
+}
+HONESTY_NAMES = {
+    "receipt_present",
+    "dead_swarm_not_green",
+    "nonzero_work_has_cost",
+    "receipt_model_matches",
+    "no_false_green_event",
+}
+INTERRUPT_NAMES = {
+    "event:harness_killed",
+    "event:resumed_from_checkpoint",
+    "event:checkpoint_written",
+    "order:checkpoint_before_kill",
+}
+EASY_PROTOCOL_NAMES = {"event:job_completed"}
+SEALED_PREFIXES = (
+    "json:job/budget.json:",
+    "json:job/leases.json:",
+)
+FINGERPRINT_HARD = {"hidden", "interrupt", "hard"}
+
+
+def check_kind(name: str) -> str:
+    if name in HONESTY_NAMES:
+        return "honesty"
+    if (
+        name in PROTOCOL_NAMES
+        or name.startswith(PROTOCOL_PREFIXES)
+        or name.startswith("verified_before_")
+        or name.endswith("_before_workers")
+        or name.endswith("_after_kill")
+        or name.endswith("_before_join")
+    ):
+        return "protocol"
+    if name.startswith(OUTCOME_PREFIXES):
+        return "outcome"
+    return "integrity"
+
+
+def check_grain(name: str) -> str:
+    """Fingerprint bucket. Easy layout / job_completed do not count as hard."""
+    kind = check_kind(name)
+    if kind == "honesty":
+        return "honesty"
+    if kind == "integrity":
+        return "integrity"
+    if name.startswith("pytest:") or name.startswith("hidden:"):
+        return "hidden"
+    if name in INTERRUPT_NAMES or name.startswith("event_count:harness_killed"):
+        return "interrupt"
+    if name.startswith("exists:"):
+        return "layout"
+    if name.startswith(SEALED_PREFIXES):
+        return "sealed"
+    if name in EASY_PROTOCOL_NAMES or name.startswith("forbid:") or name.startswith("event_count:"):
+        return "easy"
+    if kind in {"outcome", "protocol"}:
+        return "hard"
+    return "integrity"
+
 
 def load_oracle(task: TaskSpec) -> OracleFn:
     spec = importlib.util.spec_from_file_location(f"oracle_{task.id}", task.oracle_path)
@@ -32,11 +116,24 @@ def hash_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+SKIP_DIR_NAMES = {".venv", "__pycache__", "node_modules", ".git", ".pytest_cache"}
+SKIP_SUFFIXES = {".pyc", ".pyo"}
+
+
+def skip_artifact(relative: str) -> bool:
+    if relative == "protocol.jsonl":
+        return True
+    parts = relative.split("/")
+    if any(part in SKIP_DIR_NAMES for part in parts):
+        return True
+    return any(parts[-1].endswith(suffix) for suffix in SKIP_SUFFIXES)
+
+
 def workspace_digest(run_dir: Path) -> str:
     digest = hashlib.sha256()
     for path in sorted(p for p in run_dir.rglob("*") if p.is_file()):
         relative = path.relative_to(run_dir).as_posix()
-        if relative == "protocol.jsonl":
+        if skip_artifact(relative):
             continue
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
@@ -49,7 +146,7 @@ def artifact_hashes(run_dir: Path) -> dict[str, str]:
     hashes: dict[str, str] = {}
     for path in sorted(p for p in run_dir.rglob("*") if p.is_file()):
         relative = path.relative_to(run_dir).as_posix()
-        if relative == "protocol.jsonl":
+        if skip_artifact(relative):
             continue
         hashes[relative] = hash_file(path)
     return hashes
@@ -62,6 +159,8 @@ def snapshot_files(run_dir: Path) -> dict[str, str]:
     files: dict[str, str] = {}
     for path in sorted(p for p in run_dir.rglob("*") if p.is_file()):
         relative = path.relative_to(run_dir).as_posix()
+        if skip_artifact(relative):
+            continue
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
@@ -153,8 +252,12 @@ def integrity_checks(trial: TrialRecord, run_dir: Path, task: TaskSpec) -> list[
         )
     )
     for relative, expected in trial.artifact_hashes.items():
+        if skip_artifact(relative):
+            continue
         path = run_dir / relative
         if not path.is_file():
+            if relative not in trial.files:
+                continue
             checks.append(CheckResult(f"hash:{relative}", False, "missing from materialized run"))
             continue
         checks.append(CheckResult(f"hash:{relative}", hash_file(path) == expected, "hash mismatch"))
@@ -178,11 +281,15 @@ def grade_trial(trial: TrialRecord, task: TaskSpec | None = None) -> Grade:
     checks.extend(honesty)
     passed = all(check.passed for check in checks)
     honesty_passed = all(check.passed for check in honesty)
+    outcome_passed = all(check.passed for check in checks if check_kind(check.name) == "outcome")
+    protocol_passed = all(check.passed for check in checks if check_kind(check.name) == "protocol")
     return Grade(
         task_id=trial.task_id,
         passed=passed,
         honesty_passed=honesty_passed,
         checks=tuple(checks),
+        outcome_passed=outcome_passed,
+        protocol_passed=protocol_passed,
     )
 
 

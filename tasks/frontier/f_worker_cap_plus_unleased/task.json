@@ -1,0 +1,11 @@
+{
+  "id": "f_worker_cap_plus_unleased",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Budget is 1 worker and gamma is unleased \u2014 both constraints hold",
+  "timeout_seconds": 600,
+  "facets": [
+    "budget",
+    "lease"
+  ]
+}

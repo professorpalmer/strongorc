@@ -15,6 +15,8 @@ Selected tasks inject a per-run `nonce` into a seed JSON file (also copied to `.
 
 ## Environment
 
+Live `command` runs must not see the bench checkout. If `--runs-dir` is inside the repo, the harness relocates it to `~/.strongorc/runs/<name>`. Hidden tests and references are not in the seed.
+
 The harness writes both `STRONGORC_*` and legacy `DURABLE_ORCH_*` names. Read either.
 
 | Variable | Meaning |
@@ -25,12 +27,15 @@ The harness writes both `STRONGORC_*` and legacy `DURABLE_ORCH_*` names. Read ei
 | `STRONGORC_MODEL` | Invoked model id |
 | `STRONGORC_PROMPT` | Path to the copied prompt |
 | `STRONGORC_RESUME` | `1` after the harness SIGKILLs an interrupt task; unset/`0` on the first spawn |
+| `STRONGORC_RESUME_STEP` | Kill index just survived (`1`, `2`, …) on a resume spawn |
 
 ## Event types
 
-`checkpoint_written`, `resumed_from_checkpoint`, `harness_killed`, `job_completed`, `job_failed`, `job_refused`, `worker_started`, `worker_finished`, `orchestrator_wrote_solution`, `false_green`, `discovery_materialized`, `discovery_reused`, `llm_call`, `lease_acquired`, `lease_violated`, `wave_verified`, `wave_skipped`, `wave2_started`, `receipt_written`, `artifact_consumed`, `hollow_pass`
+`checkpoint_written`, `resumed_from_checkpoint`, `harness_killed`, `job_completed`, `job_failed`, `job_refused`, `worker_started`, `worker_finished`, `orchestrator_wrote_solution`, `false_green`, `discovery_materialized`, `discovery_reused`, `llm_call`, `lease_acquired`, `lease_violated`, `wave_verified`, `wave_skipped`, `wave2_started`, `wave2_verified`, `wave3_started`, `receipt_written`, `artifact_consumed`, `hollow_pass`
 
-On interrupt tasks the harness SIGKILLs the first process after `when_file` appears, writes `.harness/killed` plus a pre-kill hash snapshot, emits `harness_killed`, then respawns with `STRONGORC_RESUME=1`. Do not finish the whole job before the checkpoint. The oracle re-runs Node tests on the hard slice; leftover `.js` is a hollow fail.
+On interrupt tasks the harness SIGKILLs after each `when_file` appears (one step, or a chain), writes `.harness/killed` plus `pre_kill_<n>.json`, emits `harness_killed`, then respawns with `STRONGORC_RESUME=1`. An interrupt step may `rewrite`, `plant`, or `delete` files after the kill. Re-read the workspace. Do not replay the first prompt from memory. Do not finish the whole job before the last checkpoint.
+
+The oracle re-runs Node tests on hard and frontier, and hidden pytest on brutal. Hidden tests are not in the seed. A visible `print("ok")` / `console.log("ok")` is not a pass. On brutal, the work is a real Python package. Re-read `job/leases.json` and `job/budget.json` after every interrupt. If `job/cancel.json` appears or `unsafe` is true, refuse.
 
 Forbidden types are task-specific. Emitting a forbidden type fails the trial even if the files look green.
 

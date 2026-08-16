@@ -1,0 +1,10 @@
+{
+  "id": "f_parity_gate",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "even n pass through; odd n return 0 \u2014 visible test only uses evens",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
+}

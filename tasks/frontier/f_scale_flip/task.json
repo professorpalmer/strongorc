@@ -1,0 +1,24 @@
+{
+  "id": "f_scale_flip",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Live spec flips scale from n*2 to n*11 after SIGKILL",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "mutation",
+    "discovery"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "scale": "n * 11"
+      }
+    }
+  }
+}

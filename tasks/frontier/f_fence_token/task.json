@@ -1,0 +1,31 @@
+{
+  "id": "f_fence_token",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Lease fence token rotates after SIGKILL \u2014 stamp the live token",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation",
+    "bind"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "fence": "beta-live",
+        "leases": [
+          {
+            "worker": "w",
+            "path": "src/work"
+          }
+        ]
+      }
+    }
+  }
+}

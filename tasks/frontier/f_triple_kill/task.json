@@ -1,0 +1,33 @@
+{
+  "id": "f_triple_kill",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Survive three live SIGKILLs \u2014 layer 3 is not the finish line",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume"
+  ],
+  "interrupt": [
+    {
+      "when_file": "state/checkpoint1.json",
+      "snapshot_globs": [
+        "src/layer1/**/*.ts"
+      ],
+      "resume": true
+    },
+    {
+      "when_file": "state/checkpoint2.json",
+      "snapshot_globs": [
+        "src/layer2/**/*.ts"
+      ],
+      "resume": true
+    },
+    {
+      "when_file": "state/checkpoint3.json",
+      "snapshot_globs": [
+        "src/layer3/**/*.ts"
+      ],
+      "resume": true
+    }
+  ]
+}

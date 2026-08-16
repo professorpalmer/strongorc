@@ -1,0 +1,19 @@
+{
+  "id": "b_rate_limit",
+  "track": "worker",
+  "slice": "brutal",
+  "title": "admit allow(now)",
+  "timeout_seconds": 1800,
+  "facets": ["discovery", "mutation", "resume", "repo"],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "rewrite": {
+      "state/discoveries/limit.json": {
+        "max": 10,
+        "window_seconds": 60,
+        "algorithm": "sliding window"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "f_import_graph",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Keep the six-file import graph \u2014 do not flatten to one module",
+  "timeout_seconds": 600,
+  "facets": [
+    "chain"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "value": "sum every increment minus every decrement",
+  "merge": "add the two totals",
+  "replicas": "cosmetic"
+}

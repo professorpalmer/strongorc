@@ -1,0 +1,11 @@
+{
+  "id": "f_chain_wrong_op",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Eight-file import chain \u2014 n03.js uses the wrong operator",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow",
+    "chain"
+  ]
+}

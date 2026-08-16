@@ -1,0 +1,15 @@
+{
+  "id": "b_interval_book",
+  "track": "worker",
+  "slice": "brutal",
+  "title": "slotbook weekly bookings",
+  "timeout_seconds": 1800,
+  "facets": ["discovery", "mutation", "resume", "repo"],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "plant": {
+      "state/discoveries/clock.json": "{\n  \"intervals\": \"closed [start, end]\",\n  \"timezone\": \"UTC\",\n  \"dst\": \"shift missing local hours forward\"\n}\n"
+    }
+  }
+}

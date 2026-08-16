@@ -1,0 +1,29 @@
+{
+  "id": "h_lease_shift",
+  "track": "orchestrator",
+  "slice": "hard",
+  "title": "Leases rewrite after SIGKILL \u2014 resume must re-read the table",
+  "timeout_seconds": 600,
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/east/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "west",
+            "path": "src/west"
+          }
+        ]
+      }
+    }
+  },
+  "facets": [
+    "lease",
+    "resume",
+    "mutation"
+  ]
+}

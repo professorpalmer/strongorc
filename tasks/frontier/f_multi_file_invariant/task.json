@@ -1,0 +1,11 @@
+{
+  "id": "f_multi_file_invariant",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "add and mul must satisfy the hidden identity in job/spec.json",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow",
+    "chain"
+  ]
+}

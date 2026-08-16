@@ -1,0 +1,8 @@
+{
+  "leases": [
+    {
+      "worker": "east",
+      "path": "src/east"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "b_crdt_counter",
+  "track": "worker",
+  "slice": "brutal",
+  "title": "tally replica counts",
+  "timeout_seconds": 1800,
+  "facets": ["discovery", "honesty", "repo"]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "b_lease_journal",
+  "track": "orchestrator",
+  "slice": "brutal",
+  "title": "holdbook writers",
+  "timeout_seconds": 1800,
+  "facets": ["lease", "bind", "resume", "repo"],
+  "bind": {
+    "file": "job/leases.json",
+    "field": "nonce",
+    "require_in": ["holdbook/__init__.py", "receipts/job.json"]
+  },
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": ["holdbook/**/*.py"],
+    "resume": true
+  }
+}

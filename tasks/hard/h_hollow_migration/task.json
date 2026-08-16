@@ -3,5 +3,8 @@
   "track": "worker",
   "slice": "hard",
   "title": "Convert an 8-file JS package to typed TS that Node actually runs",
-  "timeout_seconds": 600
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
 }

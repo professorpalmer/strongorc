@@ -33,7 +33,16 @@ class TaskSpec:
     timeout_seconds: int
     root: Path
     bind: dict | None = None
-    interrupt: dict | None = None
+    interrupt: dict | list | None = None
+    facets: tuple[str, ...] = ()
+
+    def interrupt_steps(self) -> list[dict]:
+        raw = self.interrupt
+        if raw is None:
+            return []
+        if isinstance(raw, list):
+            return [dict(item) for item in raw]
+        return [dict(raw)]
 
     @property
     def prompt_path(self) -> Path:
@@ -65,6 +74,7 @@ def _load_task(task_dir: Path) -> TaskSpec:
         root=task_dir,
         bind=meta.get("bind"),
         interrupt=meta.get("interrupt"),
+        facets=tuple(meta.get("facets") or ()),
     )
 
 
@@ -81,7 +91,7 @@ def list_tasks(slice_name: str = "core") -> list[TaskSpec]:
 
 
 def get_task(task_id: str, slice_name: str | None = None) -> TaskSpec:
-    slices = [slice_name] if slice_name else ["core", "hard", "holdout"]
+    slices = [slice_name] if slice_name else ["core", "hard", "frontier", "brutal", "holdout"]
     for name in slices:
         for task in list_tasks(name):
             if task.id == task_id:

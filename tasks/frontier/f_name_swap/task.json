@@ -1,0 +1,11 @@
+{
+  "id": "f_name_swap",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Spec renames the export \u2014 seed name is bait",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery",
+    "hollow"
+  ]
+}

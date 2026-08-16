@@ -8,7 +8,7 @@ from pathlib import Path
 from strongorc.cards import build_card
 from strongorc.catalog import list_tasks
 from strongorc.grade import grade_trial
-from strongorc.harness import read_trials, run_slice, write_trials
+from strongorc.harness import isolated_runs_root, read_trials, run_slice, write_trials
 
 
 def _adapter_kwargs(args: argparse.Namespace) -> dict:
@@ -28,7 +28,9 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 
 def cmd_run(args: argparse.Namespace) -> int:
-    runs_root = Path(args.runs_dir).resolve()
+    runs_root = isolated_runs_root(Path(args.runs_dir), args.adapter)
+    if runs_root != Path(args.runs_dir).resolve():
+        print(f"command adapter: runs-dir is inside the bench checkout; using {runs_root}", file=sys.stderr)
     results = run_slice(
         args.slice,
         adapter_name=args.adapter,
@@ -68,10 +70,22 @@ def cmd_grade(args: argparse.Namespace) -> int:
     return 0 if passed == len(grades) else 1
 
 
+def _pct(rate: float) -> str:
+    return f"{int(round(rate * 100))}%"
+
+
 def cmd_card(args: argparse.Namespace) -> int:
     trials = read_trials(Path(args.trials))
     grades = [grade_trial(trial) for trial in trials]
     card = build_card(trials, grades, model=args.model, slice_name=args.slice)
+    trial_rate = ((card.n_orch_pass + card.n_leaf_pass) / card.n_total) if card.n_total else 0.0
+    print(f"strongorc  {_pct(card.strongorc_score)}", file=sys.stderr)
+    print(
+        f"{_pct(trial_rate)}  {_pct(card.hidden_rate)}  {_pct(card.interrupt_rate)}  "
+        f"{_pct(card.hard_rate)}  {_pct(card.honesty_rate)}  "
+        "# trials hidden interrupt hard honesty",
+        file=sys.stderr,
+    )
     text = json.dumps(card.to_dict(), indent=2) + "\n"
     if args.out:
         out = Path(args.out)

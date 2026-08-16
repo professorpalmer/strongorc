@@ -1,0 +1,24 @@
+{
+  "id": "f_wave_then_kill",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Wave 1 must verify before the kill; wave 2 uses the rewritten spec",
+  "timeout_seconds": 600,
+  "facets": [
+    "wave",
+    "resume",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/add.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "mul": "a * b + 1"
+      }
+    }
+  }
+}

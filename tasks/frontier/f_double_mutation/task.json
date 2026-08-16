@@ -1,0 +1,32 @@
+{
+  "id": "f_double_mutation",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "One kill rewrites leases and the factor in the same breath",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "south",
+            "path": "src/south"
+          }
+        ]
+      },
+      "job/spec.json": {
+        "factor": 8
+      }
+    }
+  }
+}

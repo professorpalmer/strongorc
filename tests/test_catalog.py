@@ -18,4 +18,26 @@ def test_hard_slice_is_registered() -> None:
     ids = [task.id for task in list_tasks("hard")]
     assert "h_kill_resume" in ids
     assert "h_hollow_migration" in ids
+    assert "h_double_kill" in ids
+    assert "h_stale_discovery" in ids
+    assert "h_split_brain" in ids
+    assert "h_lease_shift" in ids
     assert get_task("h_wave_gate").slice == "hard"
+    assert len(get_task("h_double_kill").interrupt_steps()) == 2
+    assert "resume" in get_task("h_kill_resume").facets
+
+
+def test_frontier_slice_is_findable() -> None:
+    assert get_task("f_triple_kill").slice == "frontier"
+    assert get_task("f_hollow_sub").track == "worker"
+    ids = [task.id for task in list_tasks("frontier")]
+    assert len(ids) == 48
+    assert len(set(ids)) == 48
+
+
+def test_brutal_slice_is_findable() -> None:
+    assert get_task("b_wal_replay").slice == "brutal"
+    assert get_task("b_config_lang").track == "worker"
+    ids = [task.id for task in list_tasks("brutal")]
+    assert len(ids) == 8
+    assert len(set(ids)) == 8

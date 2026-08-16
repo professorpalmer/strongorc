@@ -1,0 +1,13 @@
+{
+  "id": "b_wal_replay",
+  "track": "orchestrator",
+  "slice": "brutal",
+  "title": "persistq across process death",
+  "timeout_seconds": 1800,
+  "facets": ["resume", "checkpoint", "repo"],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": ["persistq/**/*.py"],
+    "resume": true
+  }
+}

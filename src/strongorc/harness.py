@@ -93,7 +93,13 @@ def _hash_globs(run_dir: Path, globs: list[str]) -> dict[str, str]:
     return hashes
 
 
-def _wait_and_kill(proc: subprocess.Popen, run_dir: Path, interrupt: dict, timeout: int) -> bool:
+def _wait_and_kill(
+    proc: subprocess.Popen,
+    run_dir: Path,
+    interrupt: dict,
+    timeout: int,
+    kill_index: int = 1,
+) -> bool:
     marker = run_dir / interrupt["when_file"]
     deadline = time.time() + timeout
     while proc.poll() is None and time.time() < deadline:
@@ -102,20 +108,44 @@ def _wait_and_kill(proc: subprocess.Popen, run_dir: Path, interrupt: dict, timeo
             snapshot = _hash_globs(run_dir, interrupt.get("snapshot_globs") or [])
             harness_dir = run_dir / ".harness"
             harness_dir.mkdir(parents=True, exist_ok=True)
-            (harness_dir / "pre_kill_hashes.json").write_text(
-                json.dumps(snapshot, indent=2, sort_keys=True) + "\n",
-                encoding="utf-8",
-            )
-            (harness_dir / "killed").write_text("1\n", encoding="utf-8")
+            payload = json.dumps(snapshot, indent=2, sort_keys=True) + "\n"
+            (harness_dir / "pre_kill_hashes.json").write_text(payload, encoding="utf-8")
+            (harness_dir / f"pre_kill_{kill_index}.json").write_text(payload, encoding="utf-8")
+            (harness_dir / "killed").write_text(f"{kill_index}\n", encoding="utf-8")
             proc.kill()
             proc.wait(timeout=5)
-            emit(run_dir, "harness_killed", signal="SIGKILL", marker=interrupt["when_file"])
+            emit(
+                run_dir,
+                "harness_killed",
+                signal="SIGKILL",
+                marker=interrupt["when_file"],
+                kill_index=kill_index,
+            )
+            _apply_after_kill(run_dir, interrupt)
             return True
         time.sleep(0.05)
     if proc.poll() is None:
         proc.kill()
         proc.wait(timeout=5)
     return False
+
+
+def _apply_after_kill(run_dir: Path, step: dict) -> None:
+    for relative, payload in (step.get("rewrite") or {}).items():
+        path = run_dir / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if isinstance(payload, (dict, list)):
+            path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        else:
+            path.write_text(str(payload), encoding="utf-8")
+    for relative, text in (step.get("plant") or {}).items():
+        path = run_dir / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(str(text), encoding="utf-8")
+    for relative in step.get("delete") or []:
+        path = run_dir / relative
+        if path.is_file():
+            path.unlink()
 
 
 def _record_failure(run_dir: Path, model: str, reason: str) -> None:
@@ -136,19 +166,28 @@ def _record_failure(run_dir: Path, model: str, reason: str) -> None:
 
 
 def run_interruptible(task: TaskSpec, adapter, run_dir: Path, model: str) -> None:
-    interrupt = task.interrupt or {}
-    first = _spawn_adapter(adapter, task, run_dir, model, {"RESUME": "0"})
-    killed = _wait_and_kill(first, run_dir, interrupt, task.timeout_seconds)
-    if not killed:
+    steps = task.interrupt_steps()
+    if not steps:
         return
-    if not interrupt.get("resume", True):
-        return
-    second = _spawn_adapter(adapter, task, run_dir, model, {"RESUME": "1"})
+    proc = _spawn_adapter(adapter, task, run_dir, model, {"RESUME": "0"})
+    for index, step in enumerate(steps, start=1):
+        killed = _wait_and_kill(proc, run_dir, step, task.timeout_seconds, kill_index=index)
+        if not killed:
+            return
+        if not step.get("resume", True):
+            return
+        proc = _spawn_adapter(
+            adapter,
+            task,
+            run_dir,
+            model,
+            {"RESUME": "1", "RESUME_STEP": str(index)},
+        )
     try:
-        second.wait(timeout=task.timeout_seconds)
+        proc.wait(timeout=task.timeout_seconds)
     except subprocess.TimeoutExpired:
-        second.kill()
-        second.wait(timeout=5)
+        proc.kill()
+        proc.wait(timeout=5)
         _record_failure(run_dir, model, "resume_timeout")
 
 
@@ -160,13 +199,14 @@ def run_task(
     runs_root: Path,
     adapter_kwargs: dict | None = None,
 ) -> tuple[TrialRecord, Grade]:
+    runs_root = isolated_runs_root(runs_root, adapter_name)
     run_dir = (Path(runs_root) / task.id).resolve()
     if run_dir.exists():
         shutil.rmtree(run_dir)
     seed_run(task, run_dir)
     adapter = get_adapter(adapter_name, **(adapter_kwargs or {}))
     try:
-        if task.interrupt:
+        if task.interrupt_steps():
             run_interruptible(task, adapter, run_dir, model)
         else:
             adapter.run(task, run_dir, model)
@@ -215,3 +255,21 @@ def read_trials(path: Path) -> list[TrialRecord]:
 
 def ephemeral_runs_root() -> Path:
     return Path(tempfile.mkdtemp(prefix="strongorc-"))
+
+
+def checkout_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def is_inside_checkout(path: Path) -> bool:
+    resolved = Path(path).resolve()
+    root = checkout_root()
+    return resolved == root or root in resolved.parents
+
+
+def isolated_runs_root(runs_root: Path, adapter_name: str) -> Path:
+    """Live command agents must not see the bench checkout (hidden tests, references)."""
+    root = Path(runs_root).resolve()
+    if adapter_name != "command" or not is_inside_checkout(root):
+        return root
+    return Path.home() / ".strongorc" / "runs" / root.name

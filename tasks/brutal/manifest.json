@@ -1,0 +1,14 @@
+{
+  "slice": "brutal",
+  "harness_version": "0.4.5",
+  "tasks": [
+    {"id": "b_wal_replay", "track": "orchestrator", "fail_check": "pytest:hidden"},
+    {"id": "b_dag_scheduler", "track": "orchestrator", "fail_check": "pytest:hidden"},
+    {"id": "b_lease_journal", "track": "orchestrator", "fail_check": "pytest:hidden"},
+    {"id": "b_split_store", "track": "orchestrator", "fail_check": "pytest:hidden"},
+    {"id": "b_interval_book", "track": "worker", "fail_check": "pytest:hidden"},
+    {"id": "b_crdt_counter", "track": "worker", "fail_check": "pytest:hidden"},
+    {"id": "b_rate_limit", "track": "worker", "fail_check": "pytest:hidden"},
+    {"id": "b_config_lang", "track": "worker", "fail_check": "pytest:hidden"}
+  ]
+}

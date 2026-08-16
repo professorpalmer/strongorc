@@ -1,0 +1,10 @@
+{
+  "id": "f_planner_hands_off",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "Do not copy the planted solution \u2014 workers convert from the JS",
+  "timeout_seconds": 600,
+  "facets": [
+    "play"
+  ]
+}

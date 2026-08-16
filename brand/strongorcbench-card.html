@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>StrongOrcBench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111311;
+      --mute: #8A9084;
+      --line: #E6EAE0;
+      --paper: #FFFFFF;
+      --orc: #55B04F;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1600px;
+      height: 1000px;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      padding: 40px 56px 28px;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .orc { width: 132px; height: 132px; flex: 0 0 132px; }
+    .wordmark h1 {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 58px;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      font-weight: 400;
+    }
+    .wordmark .sub {
+      margin-top: 6px;
+      font-family: "Fraunces", serif;
+      font-size: 22px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--mute);
+    }
+    .metrics {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--mute);
+    }
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 6px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .swatch { width: 13px; height: 13px; background: var(--orc); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      flex: 1;
+      min-height: 0;
+    }
+    .chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 6px;
+    }
+    .score {
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .bar-wrap {
+      width: 56px;
+      height: 118px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .bar {
+      width: 46px;
+      background: var(--orc);
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+    }
+    .bar svg { width: 22px; height: 22px; color: #fff; }
+    .pill {
+      margin-top: 10px;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6E7468;
+    }
+    footer {
+      margin-top: 4px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--mute);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true">
+    <symbol id="orc-mark" viewBox="0 0 256 256">
+      <path fill="currentColor" fill-rule="evenodd" d="M96 36h22l1 1h4l1 1h3l1 1 5 1 10 5 6 5h1l11 11v1l6 8 6-7 7-4 6-1 3 2v11l-1 1v5l-1 1v3l-1 1-1 5-3 4-1 3-6 6v13l-1 1v6l-1 1v3l-1 1-1 5-2 3v2l-2 2-2 5-3 4 4 3 5-5 6-3h3l1-1h11l1 1h3l6 3 5 5h1v-6l1-1v-9l1-1v-4l-1-1-2 1h-6l-1-1-4-1-4-4-2-4v-7l2-4 4-4 4-2h2l1-1h11l1 1h3l7 4 6 6 6 10v2l2 3v2l2 4v3l1 1v5l1 1v17l-1 1v5l-1 1v3l-1 1-1 5-3 5h-1l-3 3-3 1-2 2-8 4h-2l-3 2h-2l-4 2h-3l-1 1h-3l-1 1h-4l-1 1H177l-2 2-1 3-3 3v1l-7 6-14 6-8 1-1 1h-5l-1 1h-10l-1 1H99l-1-1H87l-1-1H75l-1-1-3-1-1-1-8-2-6-3-2-2-4-2-4-4-5-8-1-6-1-1v-14l1-1v-3l3-6v-2l2-2 1-3 3-3v-1l5-5v-1l-3-3-1-3-2-2-3-6v-2l-3-7v-3l-1-1v-4l-6-3-6-5v-1l-3-3-4-8v-2l-2-4v-3l-1-1v-3l-1-1V74l3-2 7 1 9 5 5 5 1-1 1-5 5-10 6-7v-1l8-8h1l9-7 6-3h2l3-2h3l4-2h4l4-1zm35 45h4l3 3v8l1 1v10l-2 2h-5l-2-2v-5l-1-1V87l-1-1 2-4zM78 87h4l2 2v2l1 1v4l1 1v4l1 1v7l-3 2h-3l-3-3v-3l-1-1v-5l-1-1V94l-1-1v-3l2-2zm72 31 2 2v10l-2 1-1-1h-3l-1-1h-2l4-5 2-5zM71 126l4 4v1l4 4h1l-8 4-2-4v-8z"/>
+    </symbol>
+  </svg>
+
+  <header>
+    <div class="lockup">
+      <svg class="orc" viewBox="0 0 256 256" role="img" aria-label="StrongOrc flexing" style="color:#55B04F">
+        <use href="#orc-mark"/>
+      </svg>
+      <div class="wordmark">
+        <h1>StrongOrcBench</h1>
+        <p class="sub">The Orchestration Benchmark</p>
+        <p class="metrics">orch_score · leaf_score · honesty_rate · usd_per_pass · kill-resume · hollow migration · wave gate · lease tree · hard floor</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="legend"><i class="swatch"></i>GLM-5.3 · hard floor · 2026-08-15</div>
+
+  <section class="grid">
+    <div class="chart">
+      <div class="score">1.00</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">orch_score</div>
+    </div>
+    <div class="chart">
+      <div class="score">1.00</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">leaf_score</div>
+    </div>
+    <div class="chart">
+      <div class="score">1.00</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">honesty_rate</div>
+    </div>
+    <div class="chart">
+      <div class="score">PASS</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">kill-resume</div>
+    </div>
+    <div class="chart">
+      <div class="score">PASS</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">hollow migration</div>
+    </div>
+    <div class="chart">
+      <div class="score">PASS</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">wave gate</div>
+    </div>
+    <div class="chart">
+      <div class="score">PASS</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">lease tree</div>
+    </div>
+    <div class="chart">
+      <div class="score">4/4</div>
+      <div class="bar-wrap"><div class="bar" style="height:100%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">hard floor</div>
+    </div>
+    <div class="chart">
+      <div class="score">$0.045</div>
+      <div class="bar-wrap"><div class="bar" style="height:36%"><svg viewBox="0 0 256 256"><use href="#orc-mark"/></svg></div></div>
+      <div class="pill">usd_per_pass</div>
+    </div>
+  </section>
+
+  <footer>
+    First live card. 4-task hard floor. Harness 0.1.0. Plan-nominal USD, not a list price.
+    Never a single Elo. Hard is now 12 tasks. github.com/professorpalmer/strongorc
+  </footer>
+</body>
+</html>

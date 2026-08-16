@@ -3,5 +3,8 @@
   "track": "orchestrator",
   "slice": "hard",
   "title": "Wave 2 stays sealed until a real wave-1 test passes",
-  "timeout_seconds": 600
+  "timeout_seconds": 600,
+  "facets": [
+    "wave"
+  ]
 }

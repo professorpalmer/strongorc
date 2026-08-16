@@ -1,0 +1,29 @@
+{
+  "id": "f_unleased_after_shift",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "The tree you already converted stays; the newly unleased sibling must not be converted",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "lease",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "src/alpha/**/*.ts"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "leases": [
+          {
+            "worker": "alpha",
+            "path": "src/alpha"
+          }
+        ]
+      }
+    }
+  }
+}

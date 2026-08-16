@@ -1,0 +1,11 @@
+{
+  "id": "f_operator_comment",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Comment says add; spec says mul",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery",
+    "hollow"
+  ]
+}

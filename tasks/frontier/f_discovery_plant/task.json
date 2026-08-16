@@ -1,0 +1,20 @@
+{
+  "id": "f_discovery_plant",
+  "track": "orchestrator",
+  "slice": "frontier",
+  "title": "A stale discovery is planted after SIGKILL \u2014 live spec is n*4",
+  "timeout_seconds": 600,
+  "facets": [
+    "resume",
+    "discovery",
+    "mutation"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [],
+    "resume": true,
+    "plant": {
+      "state/discoveries/scale.json": "{\n  \"scale\": \"n * 2\",\n  \"cached\": true\n}\n"
+    }
+  }
+}

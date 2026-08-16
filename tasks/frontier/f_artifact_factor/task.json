@@ -1,0 +1,10 @@
+{
+  "id": "f_artifact_factor",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Use the discovery factor, not the comment in the JS",
+  "timeout_seconds": 600,
+  "facets": [
+    "discovery"
+  ]
+}

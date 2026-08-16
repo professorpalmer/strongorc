@@ -1,0 +1,10 @@
+{
+  "id": "f_off_by_one",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Spec is inclusive; seed is exclusive; visible test uses the interior",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
+}

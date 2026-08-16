@@ -1,0 +1,11 @@
+{
+  "id": "h_lying_checkpoint",
+  "track": "worker",
+  "slice": "hard",
+  "title": "A checkpoint that says done is not evidence \u2014 the tree is still JS",
+  "timeout_seconds": 600,
+  "facets": [
+    "checkpoint",
+    "hollow"
+  ]
+}

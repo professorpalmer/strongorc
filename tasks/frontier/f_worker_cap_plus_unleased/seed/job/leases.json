@@ -1,0 +1,8 @@
+{
+  "leases": [
+    {
+      "worker": "solo",
+      "path": "src/alpha"
+    }
+  ]
+}

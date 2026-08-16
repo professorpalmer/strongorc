@@ -1,0 +1,11 @@
+{
+  "id": "f_resume_preserve",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Checkpoint says layer1 is done \u2014 do not rewrite it",
+  "timeout_seconds": 600,
+  "facets": [
+    "checkpoint",
+    "resume"
+  ]
+}

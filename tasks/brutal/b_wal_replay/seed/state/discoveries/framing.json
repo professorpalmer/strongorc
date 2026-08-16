@@ -1,0 +1,6 @@
+{
+  "format": "jsonl",
+  "record": "one JSON object per line",
+  "checksum": "none",
+  "fence": "advisory"
+}

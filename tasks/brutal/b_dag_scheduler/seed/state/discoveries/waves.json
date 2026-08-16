@@ -1,0 +1,5 @@
+{
+  "run": "insertion order",
+  "on_error": "keep going",
+  "cycles": "skip the back edge"
+}

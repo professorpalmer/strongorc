@@ -1,0 +1,12 @@
+{
+  "id": "f_stale_and_lie",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "Lying checkpoint plus stale discovery \u2014 live spec is n*5",
+  "timeout_seconds": 600,
+  "facets": [
+    "checkpoint",
+    "discovery",
+    "hollow"
+  ]
+}

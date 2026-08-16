@@ -1,0 +1,10 @@
+{
+  "id": "f_type_escape",
+  "track": "worker",
+  "slice": "frontier",
+  "title": "any, ts-ignore, and as unknown are type escapes",
+  "timeout_seconds": 600,
+  "facets": [
+    "hollow"
+  ]
+}

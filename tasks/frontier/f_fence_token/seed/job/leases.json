@@ -1,0 +1,9 @@
+{
+  "fence": "alpha-old",
+  "leases": [
+    {
+      "worker": "w",
+      "path": "src/work"
+    }
+  ]
+}
