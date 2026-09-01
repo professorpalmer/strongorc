@@ -1,0 +1,40 @@
+{
+  "id": "l_wave_seal_r3",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "desk lanes r3",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "repo"
+  ],
+  "interrupt": [
+    {
+      "when_file": "state/checkpoint.json",
+      "snapshot_globs": [
+        "desk/**/*.py"
+      ],
+      "resume": true,
+      "plant": {
+        "state/discoveries/lanes.json": {
+          "open": "all-at-once",
+          "seal": "print-ok"
+        }
+      }
+    },
+    {
+      "when_file": "state/checkpoint2.json",
+      "snapshot_globs": [
+        "desk/**/*.py"
+      ],
+      "resume": true,
+      "plant": {
+        "state/discoveries/open.json": {
+          "mode": "parallel",
+          "seal": "print-ok"
+        }
+      }
+    }
+  ]
+}

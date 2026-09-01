@@ -1,0 +1,19 @@
+{
+  "id": "n_path_mutex",
+  "track": "orchestrator",
+  "slice": "native",
+  "title": "yard stalls",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "yard/**/*.py"
+    ],
+    "resume": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "facets": [
+    "discovery",
+    "honesty",
+    "repo",
+    "resume"
+  ],
+  "family": "split_reports",
+  "id": "r_split_reports_r3",
+  "interrupt": {
+    "plant": {
+      "state/lab_reply.json": {
+        "cells": [
+          {
+            "eligible": true,
+            "sha256": "39645c1c669d162c6839e4bd746b23d53117ae46e7e7bebcfc600a950c21ed86"
+          }
+        ]
+      }
+    },
+    "resume": true,
+    "snapshot_globs": [
+      "job/**/*.json",
+      "state/**/*.json"
+    ],
+    "when_file": "state/checkpoint.json"
+  },
+  "rung": "r3",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "ledger reports r3",
+  "track": "orchestrator"
+}

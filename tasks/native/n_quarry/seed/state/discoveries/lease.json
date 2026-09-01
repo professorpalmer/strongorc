@@ -1,0 +1,7 @@
+{
+  "rewrite": true,
+  "helpers": [
+    "alpha",
+    "beta"
+  ]
+}

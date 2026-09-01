@@ -1,0 +1,7 @@
+{
+  "package": "yard",
+  "stalls": [
+    "north",
+    "south"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "holdout-0.6.0-openrouter-frontier-v3",
+  "slice": "holdout",
+  "harness_version": "0.6.0",
+  "comparable_series": "holdout-frontier-v3-0.6.0-openrouter",
+  "repeats": 3,
+  "initial_repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter",
+  "confinement": "confined",
+  "contamination": "clean",
+  "registry_status": "unknown",
+  "cmd": "python examples/openrouter_agent.py",
+  "private_bank_commitment_sha256": "847c2cd6fe7d6e44d285596a068fea11e7ff6ae66cd3a615480808016fdb6d7d",
+  "jobs": 2,
+  "smallest_meaningful_delta": 0.1,
+  "min_systems_per_band": 2,
+  "initial_cell_tasks": 8,
+  "systems": {
+    "weak": [
+      "deepseek/deepseek-v4-flash-0731",
+      "google/gemini-3.7-flash"
+    ],
+    "middle": [
+      "deepseek/deepseek-v4-pro",
+      "moonshotai/kimi-k3"
+    ],
+    "frontier": [
+      "anthropic/claude-fable-5",
+      "openai/gpt-5.6-sol"
+    ]
+  },
+  "targets": {
+    "weak": [
+      0.01,
+      0.1
+    ],
+    "middle": [
+      0.15,
+      0.4
+    ],
+    "frontier": [
+      0.35,
+      0.7
+    ],
+    "saturation": 0.8
+  },
+  "publication_gates": {
+    "attempts_per_task": 3,
+    "minimum_live_systems": 6,
+    "same_channel_only": true,
+    "require_protocol_ready": true,
+    "require_fitted_item_screen": true,
+    "minimum_paired_delta": 0.1
+  },
+  "note": "Candidate-visible output and continuity representations are explicit; nonce-derived values, dispatch selection, interruption recovery, and all hidden checks remain sealed. Confined OpenRouter only."
+}

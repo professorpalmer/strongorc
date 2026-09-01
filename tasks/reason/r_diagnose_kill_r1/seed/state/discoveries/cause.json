@@ -1,0 +1,4 @@
+{
+  "cause": "stale_lease",
+  "repair": "rotate-fence"
+}

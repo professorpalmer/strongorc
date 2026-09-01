@@ -226,7 +226,7 @@
       "id": "f_planner_hands_off",
       "track": "orchestrator",
       "title": "Do not copy the planted solution \u2014 workers convert from the JS",
-      "fail_check": "forbid:orchestrator_wrote_solution",
+      "fail_check": "omits:src/work/add.ts",
       "facets": [
         "play"
       ]

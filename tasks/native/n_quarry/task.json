@@ -1,0 +1,20 @@
+{
+  "id": "n_quarry",
+  "track": "worker",
+  "slice": "native",
+  "title": "quarry pit",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "bind",
+    "repo"
+  ],
+  "bind": {
+    "file": "job/leases.json",
+    "field": "nonce",
+    "require_in": [
+      "quarry/__init__.py",
+      "receipts/job.json"
+    ]
+  }
+}

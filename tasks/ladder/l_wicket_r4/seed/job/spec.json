@@ -1,0 +1,6 @@
+{
+  "package": "wicket",
+  "trip": 5,
+  "cooldown": 5.0,
+  "slow_ms": 120
+}

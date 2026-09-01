@@ -1,0 +1,14 @@
+{
+  "facets": [
+    "discovery",
+    "honesty",
+    "repo"
+  ],
+  "family": "split_reports",
+  "id": "r_split_reports_r1",
+  "rung": "r1",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "ledger reports r1",
+  "track": "orchestrator"
+}

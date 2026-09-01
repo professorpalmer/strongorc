@@ -1,0 +1,11 @@
+{
+  "package": "quarry",
+  "known": [
+    "alpha",
+    "beta",
+    "gamma",
+    "delta",
+    "epsilon",
+    "zeta"
+  ]
+}

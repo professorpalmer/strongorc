@@ -1,6 +1,6 @@
 """StrongOrc official harness."""
 
-__version__ = "0.4.5"
+__version__ = "0.6.0"
 
 from strongorc.schema import Card, Grade, TrialRecord
 

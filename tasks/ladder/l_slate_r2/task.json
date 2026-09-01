@@ -1,0 +1,12 @@
+{
+  "id": "l_slate_r2",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "slate pad r2",
+  "timeout_seconds": 1800,
+  "facets": [
+    "mutation",
+    "honesty",
+    "repo"
+  ]
+}

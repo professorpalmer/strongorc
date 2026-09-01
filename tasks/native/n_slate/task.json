@@ -1,0 +1,12 @@
+{
+  "id": "n_slate",
+  "track": "worker",
+  "slice": "native",
+  "title": "slate pad",
+  "timeout_seconds": 1800,
+  "facets": [
+    "mutation",
+    "honesty",
+    "repo"
+  ]
+}

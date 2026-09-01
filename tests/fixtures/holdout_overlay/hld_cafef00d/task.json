@@ -1,0 +1,11 @@
+{
+  "id": "hld_cafef00d",
+  "track": "worker",
+  "slice": "holdout",
+  "title": "architecture fixture",
+  "timeout_seconds": 30,
+  "family": "fixture",
+  "rung": "r1",
+  "generator_id": "echo",
+  "facets": ["hidden"]
+}

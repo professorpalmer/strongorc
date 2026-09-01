@@ -1,0 +1,12 @@
+{
+  "id": "n_wick",
+  "track": "worker",
+  "slice": "native",
+  "title": "wick query",
+  "timeout_seconds": 1800,
+  "facets": [
+    "discovery",
+    "hollow",
+    "repo"
+  ]
+}

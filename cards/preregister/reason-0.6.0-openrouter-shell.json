@@ -1,0 +1,28 @@
+{
+  "name": "reason-0.6.0-openrouter-shell-calibration",
+  "slice": "reason",
+  "harness_version": "0.6.0",
+  "comparable_series": "reason-0.6.0-openrouter-shell",
+  "repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter-shell",
+  "confinement": "unconfined",
+  "contamination": "unknown",
+  "registry_status": "unknown",
+  "cmd": "python examples/openrouter_agent.py --allow-shell",
+  "jobs": 2,
+  "smallest_meaningful_delta": 0.10,
+  "min_systems_per_band": 2,
+  "systems": {
+    "weak": [],
+    "middle": [],
+    "frontier": ["anthropic/claude-fable-5", "moonshotai/kimi-k3"]
+  },
+  "targets": {
+    "weak_max": 0.15,
+    "middle": [0.15, 0.40],
+    "frontier": [0.35, 0.70],
+    "saturation": 0.80
+  },
+  "note": "OpenRouter agent plus run_command in STRONGORC_RUN_DIR. Isolated run dirs; HOME is the run dir. Do not mix with confined openrouter jsonl or cursor-sdk leak rows."
+}

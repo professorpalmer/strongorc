@@ -1,0 +1,11 @@
+{
+  "package": "yard",
+  "stalls": [
+    "north",
+    "south",
+    "east",
+    "west",
+    "alley",
+    "dock"
+  ]
+}

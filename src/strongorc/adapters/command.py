@@ -13,13 +13,22 @@ from strongorc.protocol import emit, receipt_path, write_receipt
 class CommandAdapter(Adapter):
     name = "command"
 
-    def __init__(self, cmd: str | None = None) -> None:
+    def __init__(
+        self,
+        cmd: str | None = None,
+        extra_env: dict[str, str] | None = None,
+    ) -> None:
         self.cmd = cmd
+        self.extra_env = dict(extra_env or {})
 
     def run(self, task: TaskSpec, run_dir: Path, model: str) -> None:
         if not self.cmd:
             raise ValueError("command adapter requires --cmd")
         env = os.environ.copy()
+        env.update(self.extra_env)
+        from strongorc.holdout import scrub_holdout_env
+
+        scrub_holdout_env(env)
         prompt = run_dir / "PROMPT.md"
         prompt.write_text(task.prompt(), encoding="utf-8")
         bind_run(
@@ -29,6 +38,7 @@ class CommandAdapter(Adapter):
             track=task.track,
             model=model,
             prompt=str(prompt),
+            expect_interrupt="1" if task.interrupt_steps() else "0",
         )
         try:
             completed = subprocess.run(

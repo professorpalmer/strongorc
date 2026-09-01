@@ -1,0 +1,30 @@
+{
+  "id": "l_live_token_r4",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "kiln token r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "resume",
+    "mutation",
+    "repo"
+  ],
+  "bind": {
+    "file": "job/leases.json",
+    "field": "fence"
+  },
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "kiln/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/leases.json": {
+        "fence": "live-r4",
+        "generation": 7
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,10 +20,10 @@ jobs:
       - name: Install
         run: pip install -e ".[dev]"
       - name: Test
+        # Full pytest is the scripted pass / fail / non-vacuity gate for
+        # core, hard, native, ladder, reason (and brutal/frontier). Holdout
+        # tests use tests/fixtures/holdout_overlay only — do not set
+        # STRONGORC_HOLDOUT.
         run: pytest
-      - name: Scripted pass card
-        run: |
-          strongorc run --slice core --adapter scripted --persona pass --model scripted-pass --out runs/pass.jsonl
-          strongorc card runs/pass.jsonl --model scripted-pass --out cards/scripted-pass.json
-          strongorc run --slice hard --adapter scripted --persona pass --model scripted-pass --out runs/hard-pass.jsonl
-          strongorc card runs/hard-pass.jsonl --model scripted-pass --slice hard --out cards/scripted-hard-pass.json
+      - name: Replicate scripted cards
+        run: python scripts/replicate.py

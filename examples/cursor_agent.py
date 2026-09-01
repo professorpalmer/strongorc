@@ -207,20 +207,37 @@ def ensure_git(run_dir: Path) -> None:
     subprocess.run(["git", "init"], cwd=run_dir, check=False, capture_output=True)
 
 
+def sdk_params(api_model: str) -> list[dict[str, str]]:
+    raw = env_first("CURSOR_PARAMS")
+    if raw:
+        data = json.loads(raw)
+        if not isinstance(data, list):
+            raise SystemExit("CURSOR_PARAMS must be a JSON list of {id, value}")
+        return [{"id": str(item["id"]), "value": str(item["value"])} for item in data]
+    if api_model == "grok-4.6":
+        return [{"id": "effort", "value": "xhigh"}, {"id": "fast", "value": "true"}]
+    if api_model in {"gpt-5.4-nano", "gpt-5.4-mini"}:
+        return [{"id": "reasoning", "value": "xhigh"}]
+    return []
+
+
 def run_cursor_sdk(run_dir: Path, model: str, api_model: str, api_key: str) -> dict:
     if not RUNNER.is_file():
         raise SystemExit(f"missing Cursor SDK runner: {RUNNER}")
     ensure_git(run_dir)
+    params = sdk_params(api_model)
     payload = {
         "prompt": build_prompt(run_dir, model),
         "cwd": str(run_dir),
         "model": api_model,
     }
+    if params:
+        payload["params"] = params
     env = os.environ.copy()
     env["CURSOR_API_KEY"] = api_key
     env["PUPPETMASTER_CURSOR_INPUT"] = json.dumps(payload, sort_keys=True)
     env["NODE_PATH"] = str(NODE_MODULES)
-    log(run_dir, f"spawn cursor-sdk model={api_model}")
+    log(run_dir, f"spawn cursor-sdk model={api_model} params={json.dumps(params)}")
     completed = subprocess.run(
         ["node", str(RUNNER)],
         cwd=run_dir,
@@ -245,8 +262,8 @@ def run_cursor_sdk(run_dir: Path, model: str, api_model: str, api_key: str) -> d
 
 def main() -> int:
     run_dir = resolve_run_dir()
-    api_model = env_first("CURSOR_MODEL", default="composer-2.5")
-    model = env_first("STRONGORC_MODEL", "DURABLE_ORCH_MODEL", default=api_model)
+    model = env_first("STRONGORC_MODEL", "DURABLE_ORCH_MODEL", "CURSOR_MODEL", default="composer-2.5")
+    api_model = env_first("CURSOR_MODEL", default=model)
     api_key, key_source = load_cursor_key()
     log(run_dir, f"key_source {key_source}")
     try:

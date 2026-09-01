@@ -1,0 +1,7 @@
+{
+  "package": "wick",
+  "match": "glob",
+  "case": "insensitive",
+  "combine": "and",
+  "empty": "none"
+}

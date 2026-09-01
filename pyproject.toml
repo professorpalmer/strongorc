@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "strongorc"
-version = "0.4.5"
+version = "0.6.0"
 description = "StrongOrc: drop-day evaluation of models as durable orchestrators and as orchestrated workers."
 readme = "README.md"
 license = { file = "LICENSE" }

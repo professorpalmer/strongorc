@@ -1,0 +1,12 @@
+{
+  "id": "l_pouch_r2",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "pouch slips r2",
+  "timeout_seconds": 1800,
+  "facets": [
+    "honesty",
+    "discovery",
+    "repo"
+  ]
+}

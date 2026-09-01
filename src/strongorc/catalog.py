@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Literal
 
 from strongorc.env import getenv
+from strongorc.instrument import SLICE_LOOKUP_ORDER
 
 Track = Literal["orchestrator", "worker"]
 
@@ -35,6 +36,9 @@ class TaskSpec:
     bind: dict | None = None
     interrupt: dict | list | None = None
     facets: tuple[str, ...] = ()
+    family: str | None = None
+    rung: str | None = None
+    generator_id: str | None = None
 
     def interrupt_steps(self) -> list[dict]:
         raw = self.interrupt
@@ -56,6 +60,10 @@ class TaskSpec:
     def oracle_path(self) -> Path:
         return self.root / "oracle.py"
 
+    @property
+    def hidden_dir(self) -> Path:
+        return self.root / "hidden"
+
     def agent_path(self, persona: str) -> Path:
         return self.root / "agents" / f"{persona}.py"
 
@@ -75,10 +83,17 @@ def _load_task(task_dir: Path) -> TaskSpec:
         bind=meta.get("bind"),
         interrupt=meta.get("interrupt"),
         facets=tuple(meta.get("facets") or ()),
+        family=meta.get("family") or None,
+        rung=meta.get("rung") or None,
+        generator_id=meta.get("generator_id") or None,
     )
 
 
-def list_tasks(slice_name: str = "core") -> list[TaskSpec]:
+def list_tasks(slice_name: str = "ladder") -> list[TaskSpec]:
+    if slice_name == "holdout":
+        from strongorc.holdout import list_holdout_tasks
+
+        return list_holdout_tasks()
     slice_dir = TASKS_ROOT / slice_name
     if not slice_dir.is_dir():
         return []
@@ -91,7 +106,11 @@ def list_tasks(slice_name: str = "core") -> list[TaskSpec]:
 
 
 def get_task(task_id: str, slice_name: str | None = None) -> TaskSpec:
-    slices = [slice_name] if slice_name else ["core", "hard", "frontier", "brutal", "holdout"]
+    slices = (
+        [slice_name]
+        if slice_name
+        else list(SLICE_LOOKUP_ORDER)
+    )
     for name in slices:
         for task in list_tasks(name):
             if task.id == task_id:

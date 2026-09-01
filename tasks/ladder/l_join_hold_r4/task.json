@@ -1,0 +1,31 @@
+{
+  "id": "l_join_hold_r4",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "booth sides r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "mutation",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "booth/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "booth",
+        "sides": [
+          "north",
+          "south",
+          "east"
+        ],
+        "reduce": "product"
+      }
+    }
+  }
+}

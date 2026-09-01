@@ -10,7 +10,9 @@ htmlcov/
 dist/
 build/
 runs/
+results/
 *.jsonl
+!cards/raw/*.jsonl
 !cards/**/*.json
 .env
 .DS_Store
@@ -18,3 +20,24 @@ runs/
 .puppetmaster/
 .pmharness/
 .cursor/
+
+# Holdout: public tree is README + stubs only. Never commit banks.
+tasks/holdout/**
+!tasks/holdout/README.md
+!tasks/holdout/*/
+!tasks/holdout/*/task.json
+!tasks/holdout/*/prompt.md
+tasks/holdout/**/hidden/
+tasks/holdout/**/hidden/**
+tasks/holdout/**/reference/
+tasks/holdout/**/reference/**
+tasks/holdout/**/generators/
+tasks/holdout/**/generators/**
+tasks/holdout/**/secrets/
+tasks/holdout/**/secrets/**
+tasks/holdout/**/oracle.py
+
+# Operator-local overlay roots (never commit)
+.holdout/
+.strongorc-holdout/
+/holdout-overlay/

@@ -51,6 +51,10 @@ def test_scripted_pass_card_is_full_marks(tmp_path: Path) -> None:
     assert card.n_total == 12
     assert card.usd_per_pass is not None
     assert card.usd_per_pass > 0
+    assert card.usd_total > 0
+    assert card.usd_per_task is not None
+    assert card.usd_per_task > 0
+    assert len(card.task_usd) == card.tasks_total
 
 
 def test_average_scores_is_unweighted_mean() -> None:
@@ -72,6 +76,11 @@ def test_check_kind_splits_outcome_and_protocol() -> None:
     assert check_kind("files:src>=6") == "outcome"
     assert check_grain("pytest:hidden:test_burst_is_three") == "hidden"
     assert check_grain("event:harness_killed") == "interrupt"
+    assert check_kind("sealed:harness_killed") == "protocol"
+    assert check_grain("sealed:harness_killed") == "interrupt"
+    assert check_grain("sealed:pre_kill_1") == "interrupt"
+    assert check_grain("sealed:kill_count") == "interrupt"
+    assert check_grain("omits:output/solution.txt") == "hard"
     assert check_grain("exists:ink/__init__.py") == "layout"
     assert check_grain("event:job_completed") == "easy"
     assert check_grain("json:job/budget.json:max_workers") == "sealed"

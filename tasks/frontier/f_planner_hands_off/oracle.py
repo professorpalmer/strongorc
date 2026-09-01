@@ -5,6 +5,7 @@ from pathlib import Path
 from strongorc.oracle_lib import (
     file_absent,
     file_exists,
+    file_omits,
     forbids_event,
     has_event,
     no_leftover_js,
@@ -17,8 +18,9 @@ def check(run_dir: Path, trial: TrialRecord) -> list[CheckResult]:
         file_exists(run_dir, "src/work/add.ts"),
         no_leftover_js(run_dir, "src/work"),
         file_absent(run_dir, "src/play_trap"),
+        file_exists(run_dir, "play_trap/solution.ts"),
+        file_omits(run_dir, "src/work/add.ts", "PLANNER-PLAY-TRAP"),
         has_event(trial, "worker_started"),
         forbids_event(trial, "orchestrator_wrote_solution"),
         has_event(trial, "job_completed"),
     ]
-

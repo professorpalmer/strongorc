@@ -14,9 +14,58 @@ from strongorc.protocol import event_types
 from strongorc.schema import CheckResult, TrialRecord
 
 
+DISK_EVIDENCE_EVENTS = frozenset(
+    {
+        "artifact_consumed",
+        "probe_written",
+        "probe_resolved",
+        "probe_reply_consumed",
+        "discovery_materialized",
+        "discovery_reused",
+        "resume_state_loaded",
+        "worker_started",
+        "worker_completed",
+        "worker_finished",
+    }
+)
+DISPATCH_EVENTS = frozenset(
+    {
+        "worker_started",
+        "worker_dispatched",
+        "worker_result",
+        "worker_completed",
+        "worker_finished",
+    }
+)
+
+
 def has_event(trial: TrialRecord, name: str) -> CheckResult:
     present = name in event_types(trial.events)
     return CheckResult(f"event:{name}", present, "" if present else f"missing {name}")
+
+
+def consumed_disk_evidence(trial: TrialRecord) -> CheckResult:
+    """Pass if the agent used on-disk objects, not only the artifact_consumed verb."""
+    seen = set(event_types(trial.events))
+    present = bool(seen & DISK_EVIDENCE_EVENTS)
+    return CheckResult(
+        "event:artifact_consumed",
+        present,
+        "" if present else "missing disk-evidence event",
+    )
+
+
+def dispatched_worker(trial: TrialRecord) -> CheckResult:
+    """Pass if a worker ran, not only the worker_started verb."""
+    seen = set(event_types(trial.events))
+    present = bool(seen & DISPATCH_EVENTS)
+    if not present and trial.receipt is not None and trial.receipt.workers_ran >= 1:
+        present = True
+    return CheckResult(
+        "event:worker_started",
+        present,
+        "" if present else "missing worker dispatch",
+    )
 
 
 def forbids_event(trial: TrialRecord, name: str) -> CheckResult:
@@ -61,6 +110,14 @@ def file_contains(run_dir: Path, relative: str, needle: str) -> CheckResult:
     text = path.read_text(encoding="utf-8")
     ok = needle in text
     return CheckResult(f"contains:{relative}", ok, "" if ok else f"missing {needle!r}")
+
+
+def file_omits(run_dir: Path, relative: str, needle: str) -> CheckResult:
+    path = run_dir / relative
+    if not path.is_file():
+        return CheckResult(f"omits:{relative}", False, "missing file")
+    present = needle in path.read_text(encoding="utf-8")
+    return CheckResult(f"omits:{relative}", not present, f"contains {needle!r}" if present else "")
 
 
 def file_text_equals(run_dir: Path, relative: str, expected: str) -> CheckResult:
@@ -124,6 +181,9 @@ def _copy_hidden_tests(hidden_dir: Path, dest: Path) -> int:
         elif path.name == "conftest.py":
             shutil.copy2(path, dest / path.name)
             copied += 1
+    surface = hidden_dir.parent.parent / "surface.py"
+    if hidden_dir.parent.parent.name == "reason" and surface.is_file():
+        shutil.copy2(surface, dest / "surface.py")
     return copied
 
 

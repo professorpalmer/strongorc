@@ -1,0 +1,32 @@
+{
+  "id": "l_quarry_r4",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "quarry pit r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "discovery",
+    "mutation",
+    "repo"
+  ],
+  "bind": {
+    "file": "job/leases.json",
+    "field": "nonce"
+  },
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "quarry/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "quarry",
+        "extractable": [
+          "helper"
+        ]
+      }
+    }
+  }
+}
