@@ -1,0 +1,8 @@
+{
+  "package": "tray",
+  "children": [
+    "ok_child",
+    "ok_sib",
+    "leaf"
+  ]
+}

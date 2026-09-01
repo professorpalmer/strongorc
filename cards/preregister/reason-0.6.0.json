@@ -1,0 +1,27 @@
+{
+  "name": "reason-0.6.0-calibration",
+  "slice": "reason",
+  "harness_version": "0.6.0",
+  "comparable_series": "reason-0.6.0-cal",
+  "repeats": 3,
+  "adapter": "command",
+  "channel": "cursor-sdk",
+  "confinement": "authoring_sdk",
+  "contamination": "authoring_leak",
+  "registry_status": "leak_diagnostic",
+  "cmd": "python examples/cursor_agent.py",
+  "smallest_meaningful_delta": 0.10,
+  "min_systems_per_band": 2,
+  "systems": {
+    "weak": ["gpt-5.4-nano", "gpt-5.4-mini"],
+    "middle": ["composer-2.5", "grok-4.5"],
+    "frontier": ["grok-4.6", "kimi-k3"]
+  },
+  "targets": {
+    "weak_max": 0.15,
+    "middle": [0.15, 0.40],
+    "frontier": [0.35, 0.70],
+    "saturation": 0.80
+  },
+  "note": "Cursor plan credits via examples/cursor_agent.py. Isolated run dirs, but Cursor SDK can still read this checkout, so cards are authoring_sdk / leak_diagnostic. Public reason is development only. Do not register as clean. Fit IRT only after the same-harness live matrix exists."
+}

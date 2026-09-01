@@ -1,0 +1,48 @@
+{
+  "facets": [
+    "discovery",
+    "repo",
+    "resume"
+  ],
+  "family": "trace_contract",
+  "id": "r_trace_contract_r2",
+  "interrupt": {
+    "resume": true,
+    "rewrite": {
+      "state/traces.json": {
+        "pairs": [
+          {
+            "a": 2,
+            "b": 3,
+            "out": 3
+          },
+          {
+            "a": 4,
+            "b": 1,
+            "out": 4
+          },
+          {
+            "a": 0,
+            "b": 7,
+            "out": 7
+          },
+          {
+            "a": 3,
+            "b": 3,
+            "out": 3
+          }
+        ]
+      }
+    },
+    "snapshot_globs": [
+      "job/**/*.json",
+      "state/**/*.json"
+    ],
+    "when_file": "state/checkpoint.json"
+  },
+  "rung": "r2",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "flint traces r2",
+  "track": "worker"
+}

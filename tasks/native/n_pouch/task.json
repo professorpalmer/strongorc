@@ -1,0 +1,12 @@
+{
+  "id": "n_pouch",
+  "track": "worker",
+  "slice": "native",
+  "title": "pouch slips",
+  "timeout_seconds": 1800,
+  "facets": [
+    "honesty",
+    "discovery",
+    "repo"
+  ]
+}

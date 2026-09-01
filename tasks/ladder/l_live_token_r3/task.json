@@ -1,0 +1,69 @@
+{
+  "id": "l_live_token_r3",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "kiln token r3",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "bind",
+    "resume",
+    "mutation",
+    "repo"
+  ],
+  "bind": {
+    "file": "job/leases.json",
+    "field": "nonce",
+    "require_in": [
+      "kiln/__init__.py",
+      "receipts/job.json"
+    ]
+  },
+  "interrupt": [
+    {
+      "when_file": "state/checkpoint.json",
+      "snapshot_globs": [
+        "kiln/**/*.py"
+      ],
+      "resume": true,
+      "rewrite": {
+        "job/leases.json": {
+          "fence": "beta-live",
+          "leased": [
+            "kiln"
+          ]
+        }
+      }
+    },
+    {
+      "when_file": "state/checkpoint2.json",
+      "snapshot_globs": [
+        "kiln/**/*.py"
+      ],
+      "resume": true,
+      "rewrite": {
+        "job/leases.json": {
+          "fence": "gamma-live",
+          "leased": [
+            "kiln"
+          ]
+        }
+      }
+    },
+    {
+      "when_file": "state/checkpoint3.json",
+      "snapshot_globs": [
+        "kiln/**/*.py"
+      ],
+      "resume": true,
+      "rewrite": {
+        "job/leases.json": {
+          "fence": "delta-live",
+          "leased": [
+            "kiln"
+          ]
+        }
+      }
+    }
+  ]
+}

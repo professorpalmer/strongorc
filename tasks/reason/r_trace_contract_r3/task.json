@@ -1,0 +1,43 @@
+{
+  "facets": [
+    "discovery",
+    "repo",
+    "resume"
+  ],
+  "family": "trace_contract",
+  "id": "r_trace_contract_r3",
+  "interrupt": {
+    "plant": {
+      "state/lab_reply.json": {
+        "cells": [
+          [
+            3,
+            1,
+            4
+          ],
+          [
+            5,
+            2,
+            7
+          ],
+          [
+            4,
+            1,
+            5
+          ]
+        ]
+      }
+    },
+    "resume": true,
+    "snapshot_globs": [
+      "job/**/*.json",
+      "state/**/*.json"
+    ],
+    "when_file": "state/checkpoint.json"
+  },
+  "rung": "r3",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "flint traces r3",
+  "track": "worker"
+}

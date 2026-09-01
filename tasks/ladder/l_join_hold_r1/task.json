@@ -1,0 +1,19 @@
+{
+  "id": "l_join_hold_r1",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "booth sides r1",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "booth/**/*.py"
+    ],
+    "resume": true
+  }
+}

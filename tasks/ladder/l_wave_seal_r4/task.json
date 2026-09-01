@@ -1,0 +1,27 @@
+{
+  "id": "l_wave_seal_r4",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "desk lanes r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "mutation",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "desk/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "desk",
+        "lanes": 8,
+        "order": "desc"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "l_path_mutex_r4",
+  "track": "orchestrator",
+  "slice": "ladder",
+  "title": "yard stalls r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "lease",
+    "resume",
+    "mutation",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "yard/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "yard",
+        "stalls": [
+          "north",
+          "south"
+        ],
+        "mode": "closed"
+      }
+    }
+  }
+}

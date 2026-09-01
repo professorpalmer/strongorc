@@ -1,0 +1,10 @@
+{
+  "eligible": [
+    "alpha"
+  ],
+  "sha256": {
+    "alpha": "39645c1c669d162c6839e4bd746b23d53117ae46e7e7bebcfc600a950c21ed86",
+    "beta": "876a68293d14e5426479195fd120e94ed054e7b6c3b62dbd301cc594ce1c6888",
+    "gamma": "1ce7801e10794a1fce5a0cdaf3e933bd33bb1a8132cd4fb13418c742f399af39"
+  }
+}

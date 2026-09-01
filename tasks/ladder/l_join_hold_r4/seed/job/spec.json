@@ -1,0 +1,9 @@
+{
+  "package": "booth",
+  "sides": [
+    "north",
+    "south",
+    "east",
+    "west"
+  ]
+}

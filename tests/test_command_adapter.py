@@ -44,3 +44,49 @@ def test_command_runs_inside_checkout_are_relocated(tmp_path: Path) -> None:
     outside = (tmp_path / "runs").resolve()
     assert isolated_runs_root(outside, "command") == outside
     assert isolated_runs_root(inside, "scripted") == inside.resolve()
+
+
+def test_command_adapter_passes_explicit_environment(tmp_path: Path) -> None:
+    task = get_task("o_dead_swarm")
+    driver = tmp_path / "write_budget.py"
+    driver.write_text(
+        "import os\n"
+        "from pathlib import Path\n"
+        "Path(os.environ['STRONGORC_RUN_DIR'], 'budget.txt').write_text("
+        "os.environ['STRONGORC_MAX_USD'], encoding='utf-8')\n",
+        encoding="utf-8",
+    )
+    trial, _ = run_task(
+        task,
+        adapter_name="command",
+        model="budget-probe",
+        runs_root=tmp_path / "runs",
+        adapter_kwargs={
+            "cmd": f"{sys.executable} {driver}",
+            "extra_env": {"STRONGORC_MAX_USD": "0.75"},
+        },
+    )
+    assert trial.files["budget.txt"] == "0.75"
+
+
+def test_command_adapter_never_exposes_private_overlay_environment(
+    tmp_path: Path, monkeypatch
+) -> None:
+    task = get_task("o_dead_swarm")
+    driver = tmp_path / "inspect_overlay_env.py"
+    driver.write_text(
+        "import os\n"
+        "from pathlib import Path\n"
+        "Path(os.environ['STRONGORC_RUN_DIR'], 'overlay-visible.txt').write_text("
+        "str('STRONGORC_HOLDOUT' in os.environ), encoding='utf-8')\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("STRONGORC_HOLDOUT", str(tmp_path / "private-overlay"))
+    trial, _ = run_task(
+        task,
+        adapter_name="command",
+        model="environment-probe",
+        runs_root=tmp_path / "runs",
+        adapter_kwargs={"cmd": f"{sys.executable} {driver}"},
+    )
+    assert trial.files["overlay-visible.txt"] == "False"

@@ -1,0 +1,57 @@
+{
+  "name": "holdout-0.6.0-openrouter-frontier-v5",
+  "slice": "holdout",
+  "harness_version": "0.6.0",
+  "comparable_series": "holdout-frontier-v5-0.6.0-openrouter",
+  "repeats": 3,
+  "initial_repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter",
+  "confinement": "confined",
+  "contamination": "clean",
+  "registry_status": "unknown",
+  "cmd": "python examples/openrouter_agent.py",
+  "private_bank_commitment_sha256": "dedb7713c46b2efe090fb0af24c1b9b0d7c91e8d96a3fede372dfd7616df8184",
+  "jobs": 2,
+  "smallest_meaningful_delta": 0.1,
+  "min_systems_per_band": 2,
+  "initial_cell_tasks": 8,
+  "systems": {
+    "weak": [
+      "openai/gpt-5.4-nano",
+      "google/gemini-3.1-flash-lite"
+    ],
+    "middle": [
+      "deepseek/deepseek-v4-flash-0731",
+      "anthropic/claude-fable-5"
+    ],
+    "frontier": [
+      "google/gemini-3.7-flash",
+      "openai/gpt-5.6-sol"
+    ]
+  },
+  "targets": {
+    "weak": [
+      0.01,
+      0.1
+    ],
+    "middle": [
+      0.15,
+      0.4
+    ],
+    "frontier": [
+      0.5,
+      0.75
+    ],
+    "saturation": 0.85
+  },
+  "publication_gates": {
+    "attempts_per_task": 3,
+    "minimum_live_systems": 6,
+    "same_channel_only": true,
+    "require_protocol_ready": true,
+    "require_fitted_item_screen": true,
+    "minimum_paired_delta": 0.1
+  },
+  "note": "Calibration bank for adaptive report-dependent coordination and event-sourced worker assignments. Provider-neutral interruption wording avoids content-filter confounding. Explicit representations; dynamic values and orchestration decisions remain sealed. Do not publish as the final ranking bank."
+}

@@ -1,0 +1,6 @@
+{
+  "match": "glob",
+  "case": "insensitive",
+  "combine": "or",
+  "empty": "all"
+}

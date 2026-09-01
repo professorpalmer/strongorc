@@ -1,0 +1,7 @@
+{
+  "gather": "first-side",
+  "sides": [
+    "left",
+    "right"
+  ]
+}

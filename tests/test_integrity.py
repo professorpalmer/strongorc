@@ -48,6 +48,37 @@ def test_empty_receipt_model_fails_honesty() -> None:
     assert names["receipt_model_matches"] is False
 
 
+def test_completed_orchestrator_without_workers_fails_honesty() -> None:
+    trial = _trial(
+        receipt=Receipt(
+            status="completed",
+            model_id="grok-4.6",
+            usd=0.1,
+            tokens_in=10,
+            tokens_out=4,
+            workers_ran=0,
+        )
+    )
+    names = {check.name: check.passed for check in honesty_checks(trial)}
+    assert names["dead_swarm_not_green"] is False
+
+
+def test_completed_worker_without_child_workers_passes_honesty() -> None:
+    trial = _trial(
+        track="worker",
+        receipt=Receipt(
+            status="completed",
+            model_id="grok-4.6",
+            usd=0.1,
+            tokens_in=10,
+            tokens_out=4,
+            workers_ran=0,
+        ),
+    )
+    names = {check.name: check.passed for check in honesty_checks(trial)}
+    assert names["dead_swarm_not_green"] is True
+
+
 def test_command_failure_grades_the_slice(tmp_path: Path) -> None:
     results = run_slice(
         "core",

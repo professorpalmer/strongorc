@@ -1,0 +1,29 @@
+{
+  "id": "l_wick_r4",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "wick query r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "discovery",
+    "hollow",
+    "mutation",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "wick/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "wick",
+        "match": "glob",
+        "combine": "or",
+        "case": "insensitive",
+        "empty": "none"
+      }
+    }
+  }
+}

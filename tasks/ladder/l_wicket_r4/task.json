@@ -1,0 +1,28 @@
+{
+  "id": "l_wicket_r4",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "wicket latch r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "discovery",
+    "mutation",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "wicket/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "wicket",
+        "trip": 2,
+        "cooldown": 1,
+        "slow_ms": 10000
+      }
+    }
+  }
+}

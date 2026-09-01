@@ -1,0 +1,66 @@
+{
+  "harness_version": "0.6.0",
+  "slice": "reason",
+  "tasks": [
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_diagnose_kill_r1",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_split_reports_r1",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_trace_contract_r1",
+      "track": "worker"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_retract_rule_r1",
+      "track": "worker"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_diagnose_kill_r2",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_split_reports_r2",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_trace_contract_r2",
+      "track": "worker"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_retract_rule_r2",
+      "track": "worker"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_diagnose_kill_r3",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_split_reports_r3",
+      "track": "orchestrator"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_trace_contract_r3",
+      "track": "worker"
+    },
+    {
+      "fail_check": "pytest:hidden",
+      "id": "r_retract_rule_r3",
+      "track": "worker"
+    }
+  ]
+}

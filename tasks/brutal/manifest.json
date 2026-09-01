@@ -1,6 +1,6 @@
 {
   "slice": "brutal",
-  "harness_version": "0.4.5",
+  "harness_version": "0.4.6",
   "tasks": [
     {"id": "b_wal_replay", "track": "orchestrator", "fail_check": "pytest:hidden"},
     {"id": "b_dag_scheduler", "track": "orchestrator", "fail_check": "pytest:hidden"},

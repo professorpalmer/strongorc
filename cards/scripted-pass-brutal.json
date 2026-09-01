@@ -1,7 +1,7 @@
 {
   "model": "scripted-pass",
-  "date": "2026-08-16",
-  "harness_version": "0.4.1",
+  "date": "2026-08-20",
+  "harness_version": "0.6.0",
   "slice": "brutal",
   "strongorc_score": 1.0,
   "orch_score": 1.0,
@@ -21,15 +21,15 @@
   "n_protocol_pass": 8,
   "n_outcome_checks": 52,
   "n_outcome_check_pass": 52,
-  "n_protocol_checks": 17,
-  "n_protocol_check_pass": 17,
+  "n_protocol_checks": 35,
+  "n_protocol_check_pass": 35,
   "n_total": 8,
   "orch_check_rate": 1.0,
   "leaf_check_rate": 1.0,
-  "n_orch_checks": 44,
-  "n_orch_check_pass": 44,
-  "n_leaf_checks": 25,
-  "n_leaf_check_pass": 25,
+  "n_orch_checks": 56,
+  "n_orch_check_pass": 56,
+  "n_leaf_checks": 31,
+  "n_leaf_check_pass": 31,
   "facet_scores": {
     "bind": 1.0,
     "budget": 1.0,
@@ -75,16 +75,16 @@
   "facet_check_n": {
     "hollow": 6,
     "chain": 6,
-    "repo": 69,
-    "discovery": 19,
+    "repo": 87,
+    "discovery": 25,
     "honesty": 8,
-    "wave": 11,
-    "resume": 55,
-    "mutation": 17,
-    "lease": 16,
-    "bind": 10,
-    "budget": 6,
-    "checkpoint": 17
+    "wave": 14,
+    "resume": 73,
+    "mutation": 26,
+    "lease": 22,
+    "bind": 13,
+    "budget": 9,
+    "checkpoint": 20
   },
   "task_check_rates": {
     "b_config_lang": 1.0,
@@ -102,10 +102,90 @@
   "layout_rate": 1.0,
   "n_hidden": 47,
   "n_hidden_pass": 47,
-  "n_interrupt": 10,
-  "n_interrupt_pass": 10,
-  "n_hard": 69,
-  "n_hard_pass": 69,
+  "n_interrupt": 28,
+  "n_interrupt_pass": 28,
+  "n_hard": 87,
+  "n_hard_pass": 87,
   "n_layout": 9,
-  "n_layout_pass": 9
+  "n_layout_pass": 9,
+  "protocol_shape_rate": 1.0,
+  "n_protocol_shape": 12,
+  "n_protocol_shape_pass": 12,
+  "honesty_rate_earned": 1.0,
+  "n_honesty_earned": 40,
+  "n_honesty_earned_pass": 40,
+  "hidden_rate_ci": [
+    0.9244398288016114,
+    1.0
+  ],
+  "interrupt_rate_ci": [
+    0.8793527963418923,
+    1.0
+  ],
+  "protocol_shape_rate_ci": [
+    0.7574992425007574,
+    1.0
+  ],
+  "honesty_rate_earned_ci": [
+    0.9123754607496077,
+    1.0
+  ],
+  "strongorc_score_ci": [
+    1.0,
+    1.0
+  ],
+  "pass_at_1": 1.0,
+  "pass_at_k": 1.0,
+  "n_attempts": 1,
+  "task_equalized_score": 1.0,
+  "family_scores": {},
+  "rung_scores": {},
+  "tasks_passed": 8,
+  "tasks_total": 8,
+  "adapter": "scripted",
+  "model_config": {},
+  "confinement": "scripted",
+  "contamination": "unknown",
+  "pre_register_sha256": "",
+  "n_repeats_requested": 1,
+  "comparable_series": "",
+  "registry_status": "non_model",
+  "task_equalized_score_ci": [
+    0.6755843804891231,
+    1.0
+  ],
+  "task_clustered_ci": {
+    "hidden": [
+      0.6755843804891231,
+      1.0
+    ],
+    "honesty_earned": [
+      0.6755843804891231,
+      1.0
+    ],
+    "interrupt": [
+      0.6096569663469354,
+      1.0
+    ],
+    "orch_task_evidence": [
+      0.5100999795960008,
+      1.0
+    ],
+    "protocol_shape": [
+      0.6456611570247934,
+      1.0
+    ],
+    "strongorc_score": [
+      0.6755843804891231,
+      1.0
+    ],
+    "task_equalized_score": [
+      0.6755843804891231,
+      1.0
+    ],
+    "worker_task_evidence": [
+      0.5100999795960008,
+      1.0
+    ]
+  }
 }

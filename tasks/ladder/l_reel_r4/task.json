@@ -1,0 +1,31 @@
+{
+  "id": "l_reel_r4",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "reel cursor r4",
+  "timeout_seconds": 1800,
+  "facets": [
+    "resume",
+    "discovery",
+    "mutation",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "reel/**/*.py"
+    ],
+    "resume": true,
+    "rewrite": {
+      "job/spec.json": {
+        "package": "reel",
+        "acked": [
+          "a",
+          "b",
+          "c"
+        ],
+        "reack": "raise"
+      }
+    }
+  }
+}

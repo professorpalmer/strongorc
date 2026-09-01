@@ -1,0 +1,66 @@
+{
+  "slice": "native",
+  "harness_version": "0.4.6",
+  "tasks": [
+    {
+      "id": "n_wave_seal",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_join_hold",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_path_mutex",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_child_closed",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_live_token",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_cap_shift",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_pouch",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_slate",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_wicket",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_reel",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_quarry",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "n_wick",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    }
+  ]
+}

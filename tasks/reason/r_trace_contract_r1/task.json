@@ -1,0 +1,13 @@
+{
+  "facets": [
+    "discovery",
+    "repo"
+  ],
+  "family": "trace_contract",
+  "id": "r_trace_contract_r1",
+  "rung": "r1",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "flint traces r1",
+  "track": "worker"
+}

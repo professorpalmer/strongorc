@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 from strongorc.protocol import emit, write_receipt
@@ -7,8 +8,7 @@ model = MODEL
 out = run_dir / "output"
 out.mkdir(parents=True, exist_ok=True)
 
-(out / "solution.txt").write_text("ORCH-NEVER-PLAYS-7F3A\n", encoding="utf-8")
-(out / "writer.txt").write_text("orchestrator\n", encoding="utf-8")
+shutil.copy(run_dir / "play_trap" / "solution.txt", out / "solution.txt")
 emit(run_dir, "orchestrator_wrote_solution")
 emit(run_dir, "job_completed")
 write_receipt(

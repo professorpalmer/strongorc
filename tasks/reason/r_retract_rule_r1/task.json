@@ -1,0 +1,13 @@
+{
+  "facets": [
+    "discovery",
+    "repo"
+  ],
+  "family": "retract_rule",
+  "id": "r_retract_rule_r1",
+  "rung": "r1",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "quill rule r1",
+  "track": "worker"
+}

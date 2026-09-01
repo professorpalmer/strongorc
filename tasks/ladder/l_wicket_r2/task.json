@@ -1,0 +1,25 @@
+{
+  "id": "l_wicket_r2",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "wicket latch r2",
+  "timeout_seconds": 1800,
+  "facets": [
+    "discovery",
+    "mutation",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "rewrite": {
+      "state/discoveries/limit.json": {
+        "max": 20,
+        "window_seconds": 120,
+        "cooldown": 60,
+        "algorithm": "sliding window"
+      }
+    }
+  }
+}

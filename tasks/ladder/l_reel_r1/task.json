@@ -1,0 +1,22 @@
+{
+  "id": "l_reel_r1",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "reel cursor r1",
+  "timeout_seconds": 1800,
+  "facets": [
+    "resume",
+    "discovery",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "rewrite": {
+      "state/cursor.json": {
+        "replay_from": 0,
+        "ignore_acked": true
+      }
+    }
+  }
+}

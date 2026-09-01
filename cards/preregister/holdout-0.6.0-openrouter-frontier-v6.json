@@ -1,0 +1,58 @@
+{
+  "name": "holdout-0.6.0-openrouter-frontier-v6",
+  "slice": "holdout",
+  "harness_version": "0.6.0",
+  "comparable_series": "holdout-frontier-v6-0.6.0-openrouter",
+  "repeats": 3,
+  "initial_repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter",
+  "confinement": "confined",
+  "contamination": "clean",
+  "registry_status": "unknown",
+  "cmd": "python examples/openrouter_agent.py",
+  "private_bank_commitment_sha256": "6a156d8175a0195562e349c5d481552cc2fce43218f7709e4be15369c9a7a449",
+  "jobs": 2,
+  "smallest_meaningful_delta": 0.1,
+  "min_systems_per_band": 2,
+  "initial_cell_tasks": 8,
+  "systems": {
+    "weak": [
+      "openai/gpt-5.4-nano",
+      "google/gemini-3.1-flash-lite"
+    ],
+    "middle": [
+      "deepseek/deepseek-v4-flash-0731",
+      "google/gemini-3.7-flash"
+    ],
+    "frontier": [
+      "anthropic/claude-fable-5",
+      "openai/gpt-5.6-sol"
+    ]
+  },
+  "targets": {
+    "weak": [
+      0.01,
+      0.1
+    ],
+    "middle": [
+      0.15,
+      0.45
+    ],
+    "frontier": [
+      0.5,
+      0.75
+    ],
+    "saturation": 0.85
+  },
+  "publication_gates": {
+    "attempts_per_task": 3,
+    "minimum_live_systems": 6,
+    "same_channel_only": true,
+    "require_protocol_ready": true,
+    "require_fitted_item_screen": true,
+    "minimum_paired_delta": 0.1,
+    "minimum_coverage": 0.95
+  },
+  "note": "Calibration bank for assignment-sensitive orchestration and orchestrated work. Strict end-to-end task success is primary; partial evidence is diagnostic and provider failures are reported as coverage. Do not publish as the final ranking bank."
+}

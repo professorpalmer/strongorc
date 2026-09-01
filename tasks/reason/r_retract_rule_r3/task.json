@@ -1,0 +1,69 @@
+{
+  "facets": [
+    "discovery",
+    "repo",
+    "resume"
+  ],
+  "family": "retract_rule",
+  "id": "r_retract_rule_r3",
+  "interrupt": {
+    "plant": {
+      "state/lab_reply.json": {
+        "cells": [
+          [
+            3,
+            1,
+            4
+          ],
+          [
+            5,
+            2,
+            7
+          ],
+          [
+            4,
+            1,
+            5
+          ]
+        ]
+      }
+    },
+    "resume": true,
+    "rewrite": {
+      "state/traces.json": {
+        "pairs": [
+          {
+            "a": 0,
+            "b": 5,
+            "out": 5
+          },
+          {
+            "a": 2,
+            "b": 0,
+            "out": 2
+          },
+          {
+            "a": 0,
+            "b": 0,
+            "out": 0
+          },
+          {
+            "a": 1,
+            "b": 0,
+            "out": 1
+          }
+        ]
+      }
+    },
+    "snapshot_globs": [
+      "job/**/*.json",
+      "state/**/*.json"
+    ],
+    "when_file": "state/checkpoint.json"
+  },
+  "rung": "r3",
+  "slice": "reason",
+  "timeout_seconds": 1800,
+  "title": "quill rule r3",
+  "track": "worker"
+}

@@ -1,0 +1,4 @@
+{
+  "need": "any",
+  "reduce": "sum"
+}

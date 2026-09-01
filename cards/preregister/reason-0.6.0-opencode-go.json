@@ -1,0 +1,28 @@
+{
+  "name": "reason-0.6.0-opencode-go-calibration",
+  "slice": "reason",
+  "harness_version": "0.6.0",
+  "comparable_series": "reason-0.6.0-opencode-go",
+  "repeats": 1,
+  "adapter": "command",
+  "channel": "agentic-opencode",
+  "provider": "opencode-go",
+  "confinement": "confined",
+  "contamination": "unknown",
+  "registry_status": "unknown",
+  "cmd": "python examples/agentic_opencode_agent.py",
+  "smallest_meaningful_delta": 0.10,
+  "min_systems_per_band": 2,
+  "systems": {
+    "weak": [],
+    "middle": ["minimax-m2.5"],
+    "frontier": ["ox-alpha-free"]
+  },
+  "targets": {
+    "weak_max": 0.15,
+    "middle": [0.15, 0.40],
+    "frontier": [0.35, 0.70],
+    "saturation": 0.80
+  },
+  "note": "Puppetmaster CLI agentic adapter pinned through OpenCode Go (no --auto-route). Isolated run dir, isolated --state-dir, --disable-codegraph --disable-memory. Filesystem tools are cwd-jailed. Implement run_terminal starts in that cwd but can read absolute paths, so do not claim clean. Do not mix this series with cursor-sdk leak-diagnostic rows. Fit IRT only after the same-channel matrix exists."
+}

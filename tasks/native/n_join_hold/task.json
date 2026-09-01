@@ -1,0 +1,19 @@
+{
+  "id": "n_join_hold",
+  "track": "orchestrator",
+  "slice": "native",
+  "title": "booth sides",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "booth/**/*.py"
+    ],
+    "resume": true
+  }
+}

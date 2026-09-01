@@ -1,0 +1,6 @@
+{
+  "match": "prefix",
+  "case": "sensitive",
+  "combine": "and",
+  "empty": "all"
+}

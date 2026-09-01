@@ -1,0 +1,28 @@
+{
+  "name": "core-0.6.0-openrouter-calibration",
+  "slice": "core",
+  "harness_version": "0.6.0",
+  "comparable_series": "core-0.6.0-openrouter",
+  "repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter",
+  "confinement": "confined",
+  "contamination": "unknown",
+  "registry_status": "unknown",
+  "cmd": "python examples/openrouter_agent.py",
+  "jobs": 8,
+  "smallest_meaningful_delta": 0.10,
+  "min_systems_per_band": 2,
+  "systems": {
+    "weak": [],
+    "middle": [],
+    "frontier": ["stealth/ox-alpha"]
+  },
+  "targets": {
+    "weak_max": 0.15,
+    "middle": [0.15, 0.40],
+    "frontier": [0.35, 0.70],
+    "saturation": 0.80
+  },
+  "note": "Confined OpenRouter jail. 12-task core. Do not mix with cursor-sdk leak rows or agentic-opencode dialect rows."
+}

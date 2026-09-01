@@ -1,0 +1,25 @@
+{
+  "id": "n_wave_seal",
+  "track": "orchestrator",
+  "slice": "native",
+  "title": "desk lanes",
+  "timeout_seconds": 1800,
+  "facets": [
+    "wave",
+    "resume",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "snapshot_globs": [
+      "desk/**/*.py"
+    ],
+    "resume": true,
+    "plant": {
+      "state/discoveries/lanes.json": {
+        "open": "all-at-once",
+        "seal": "print-ok"
+      }
+    }
+  }
+}

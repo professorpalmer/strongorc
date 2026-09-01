@@ -1,0 +1,12 @@
+{
+  "id": "l_wick_r1",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "wick query r1",
+  "timeout_seconds": 1800,
+  "facets": [
+    "discovery",
+    "hollow",
+    "repo"
+  ]
+}

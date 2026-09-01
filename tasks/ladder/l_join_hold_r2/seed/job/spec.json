@@ -1,0 +1,8 @@
+{
+  "package": "booth",
+  "sides": [
+    "left",
+    "right",
+    "center"
+  ]
+}

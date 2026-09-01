@@ -1,0 +1,6 @@
+{
+  "max": 20,
+  "window_seconds": 120,
+  "cooldown": 60,
+  "algorithm": "sliding window"
+}

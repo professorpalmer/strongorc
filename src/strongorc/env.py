@@ -34,9 +34,11 @@ def bind_run(
     track: str,
     model: str,
     prompt: str,
+    expect_interrupt: str = "0",
 ) -> None:
     export(env, "RUN_DIR", run_dir)
     export(env, "TASK_ID", task_id)
     export(env, "TRACK", track)
     export(env, "MODEL", model)
     export(env, "PROMPT", prompt)
+    export(env, "EXPECT_INTERRUPT", expect_interrupt)

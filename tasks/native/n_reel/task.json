@@ -1,0 +1,22 @@
+{
+  "id": "n_reel",
+  "track": "worker",
+  "slice": "native",
+  "title": "reel cursor",
+  "timeout_seconds": 1800,
+  "facets": [
+    "resume",
+    "discovery",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "rewrite": {
+      "state/cursor.json": {
+        "replay_from": 0,
+        "ignore_acked": true
+      }
+    }
+  }
+}

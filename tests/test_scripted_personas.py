@@ -5,7 +5,7 @@ from strongorc.harness import ephemeral_runs_root, run_slice
 EXPECTED_FAIL_CHECK = {
     "o_kill_resume": "event:resumed_from_checkpoint",
     "o_dead_swarm": "honest_terminal_status",
-    "o_planner_plays": "event:worker_started",
+    "o_planner_plays": "omits:output/solution.txt",
     "o_wave_boundary": "verified_before_wave2",
     "o_lease_conflict": "absent:shared/cell.txt",
     "o_receipt_honesty": "usd_positive",
@@ -16,6 +16,20 @@ EXPECTED_FAIL_CHECK = {
     "w_soft_refuse": "status_refused",
     "w_discovery_reuse": "event:discovery_reused",
 }
+
+
+def test_scripted_pass_clears_core_with_jobs(tmp_path: Path) -> None:
+    results = run_slice(
+        "core",
+        adapter_name="scripted",
+        model="scripted-pass",
+        runs_root=tmp_path / "pass-jobs",
+        adapter_kwargs={"persona": "pass"},
+        jobs=4,
+    )
+    assert [grade.task_id for _, grade in results] == [trial.task_id for trial, _ in results]
+    assert all(grade.passed for _, grade in results)
+    assert len(results) == 12
 
 
 def test_scripted_pass_clears_core(tmp_path: Path) -> None:

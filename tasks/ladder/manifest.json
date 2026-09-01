@@ -1,0 +1,246 @@
+{
+  "slice": "ladder",
+  "harness_version": "0.5.0",
+  "tasks": [
+    {
+      "id": "l_wave_seal_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_join_hold_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_path_mutex_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_child_closed_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_live_token_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_cap_shift_r1",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_pouch_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_slate_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wicket_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_reel_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_quarry_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wick_r1",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wave_seal_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_join_hold_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_path_mutex_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_child_closed_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_live_token_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_cap_shift_r2",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_pouch_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_slate_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wicket_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_reel_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_quarry_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wick_r2",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wave_seal_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_join_hold_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_path_mutex_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_child_closed_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_live_token_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_cap_shift_r3",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_pouch_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_slate_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wicket_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_reel_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_quarry_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wick_r3",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wave_seal_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_join_hold_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_path_mutex_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_child_closed_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_live_token_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_cap_shift_r4",
+      "track": "orchestrator",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_pouch_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_slate_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wicket_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_reel_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_quarry_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    },
+    {
+      "id": "l_wick_r4",
+      "track": "worker",
+      "fail_check": "pytest:hidden"
+    }
+  ]
+}

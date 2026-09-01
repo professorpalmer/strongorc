@@ -1,0 +1,29 @@
+{
+  "name": "holdout-0.6.0-openrouter-shell-ablation",
+  "slice": "holdout",
+  "harness_version": "0.6.0",
+  "comparable_series": "holdout-0.6.0-openrouter-shell",
+  "repeats": 1,
+  "adapter": "command",
+  "channel": "openrouter-shell",
+  "confinement": "unconfined",
+  "contamination": "unknown",
+  "registry_status": "retired_evidence",
+  "cmd": "python examples/openrouter_agent.py --allow-shell",
+  "jobs": 2,
+  "smallest_meaningful_delta": 0.10,
+  "min_systems_per_band": 2,
+  "systems": {
+    "weak": [],
+    "middle": [],
+    "frontier": ["anthropic/claude-fable-5", "moonshotai/kimi-k3"]
+  },
+  "targets": {
+    "weak_max": 0.15,
+    "middle": [0.15, 0.40],
+    "frontier": [0.35, 0.70],
+    "saturation": 0.80
+  },
+  "retirement_reason": "Unconfined shell can inspect private overlay paths and cannot support an official ranking claim.",
+  "note": "Historical jail ablation only. Never mix with confined OpenRouter ranking rows."
+}

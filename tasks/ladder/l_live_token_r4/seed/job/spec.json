@@ -1,0 +1,6 @@
+{
+  "package": "kiln",
+  "fences": [
+    "seed-fence"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "l_slate_r3",
+  "track": "worker",
+  "slice": "ladder",
+  "title": "slate pad r3",
+  "timeout_seconds": 1800,
+  "facets": [
+    "mutation",
+    "honesty",
+    "repo"
+  ],
+  "interrupt": {
+    "when_file": "state/checkpoint.json",
+    "resume": true,
+    "rewrite": {
+      "state/discoveries/apply.json": {
+        "mode": "sum",
+        "replay": "double"
+      }
+    }
+  }
+}
