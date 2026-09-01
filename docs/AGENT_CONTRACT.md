@@ -34,8 +34,8 @@ The harness writes both `STRONGORC_*` and legacy `DURABLE_ORCH_*` names. Read ei
 root for the private holdout slice. The harness strips it from the agent
 process environment. Agents never receive overlay paths, hidden tests,
 generators, or references. Do not commit a real holdout bank to this
-repository. Public `tasks/holdout` is README and stubs only (`hld_<hex>`
-ids may expose track/family/rung). When the variable is unset, holdout
+repository. Public `tasks/holdout` is the operator README only. When
+the variable is unset, holdout
 is empty and `run` / `card` refuse a vacuous score. Overlay generators
 are trusted grader-side code loaded in-process — not a sandbox. Grade
 hashes the overlay before and after `generate` and jails the returned

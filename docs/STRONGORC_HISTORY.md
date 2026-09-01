@@ -347,15 +347,27 @@ Official ranking moved back to confined `openrouter`.
 `openrouter-shell` remains retired ablation evidence. The first paid step is
 an eight-item, one-attempt, two-system canary, not a 24×3 sweep.
 
+### 2026-08-31 to 2026-09-01: freeze ranking-v1
+
+Adaptive private banks v3–v6 were rejected or superseded. v5 partial-credit
+scoring inverted perceived strength. v6 made strict task pass the ranking
+headline and treated provider failures as coverage. A nine-system confined
+matrix on frontier-v6 fitted 2PL, occupied weak/middle/frontier, and
+separated the frontier cluster from the middle cluster. Adjacent systems
+inside a band did not clear the 0.10 paired delta.
+
+A fresh private mint, `strongorc-ranking-v1-2026-09-01`, was committed as
+`b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110`.
+Deterministic controls on that mint were gold 24/24 and targeted fails
+0/24. No live model has been scored on ranking-v1. Frontier-v6 rows are
+development evidence only ([CALIBRATION_APPENDIX.md](CALIBRATION_APPENDIX.md)).
+
 ## Unresolved evidence
 
-- The private bank is structurally and deterministically ready but has no live
-  response matrix. Authored rung labels are hypotheses until weak, middle, and
-  frontier systems identify item difficulty and discrimination.
-- The retired v2 Fable records remain diagnostic only: the wave was manually
-  aborted and that bank was one-track.
-- Registry publication still requires three attempts, six live systems,
-  same-channel item variance, band occupancy, and paired separation.
+- Official ranking-v1 scores do not exist yet. The frontier-v6 matrix is
+  labeled calibration, not a public table.
+- Adjacent frontier systems (Sol, Fable, Gemini 3.7 Flash) overlap on
+  paired intervals. A first public table should say so.
 - Public hidden tests have no canary or encrypted/private counterpart.
 - Deleted material inside macOS Trash could not be inspected because of system
   permissions; every other accessible Cursor store, backup, archive, and common

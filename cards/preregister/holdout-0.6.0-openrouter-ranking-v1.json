@@ -40,5 +40,5 @@
     "minimum_paired_delta": 0.1,
     "minimum_coverage": 0.95
   },
-  "note": "Fresh private ranking bank minted from the calibrated frontier-v6 design. Validate only with deterministic control agents before ranking runs; do not calibrate live models against this bank."
+  "note": "Official frozen ranking bank for harness 0.6.0. Validate with deterministic controls, then run official ranks. Do not retune this bank after observing live scores."
 }

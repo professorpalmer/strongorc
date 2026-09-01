@@ -53,5 +53,5 @@
     "require_fitted_item_screen": true,
     "minimum_paired_delta": 0.1
   },
-  "note": "Candidate-visible output and continuity representations are explicit; nonce-derived values, dispatch selection, interruption recovery, and all hidden checks remain sealed. Confined OpenRouter only."
+  "note": "Superseded frontier-v3 calibration commitment. Official ranking is holdout-0.6.0-openrouter-ranking-v1.json."
 }

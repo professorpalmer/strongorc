@@ -53,5 +53,5 @@
     "require_fitted_item_screen": true,
     "minimum_paired_delta": 0.1
   },
-  "note": "Official private ranking series. Confined OpenRouter only; shell results are ablations. Start with one mixed-track item per family, widen only after cross-system outcome variance."
+  "note": "Superseded frontier-v2 calibration commitment. Official ranking is holdout-0.6.0-openrouter-ranking-v1.json. Do not treat this card as the ranking series."
 }

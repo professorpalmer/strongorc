@@ -37,7 +37,10 @@ tasks/holdout/**/secrets/
 tasks/holdout/**/secrets/**
 tasks/holdout/**/oracle.py
 
-# Operator-local overlay roots (never commit)
+# Operator-local overlay roots and runtime (never commit)
 .holdout/
 .strongorc-holdout/
 /holdout-overlay/
+.strongorc/
+artifacts/
+keys.json

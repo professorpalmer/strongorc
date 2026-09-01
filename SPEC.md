@@ -6,7 +6,7 @@ This is not SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those score whether 
 
 Sibling research: *State, Not Tokens* (Zenodo 10.5281/zenodo.20709565). Independent package — not a Puppetmaster module.
 
-Factsheet: [docs/DATASHEET.md](docs/DATASHEET.md). Card status is taken only from [cards/registry.json](cards/registry.json).
+Factsheet: [docs/DATASHEET.md](docs/DATASHEET.md). Ranking contract: [docs/RANKING.md](docs/RANKING.md). Card status is taken only from [cards/registry.json](cards/registry.json).
 
 ## Validity and interpretation
 
@@ -18,20 +18,21 @@ Cards from harness **0.5.x and earlier are not comparable to 0.6.0**. The 0.6.0 
 
 Primary uncertainty is **task-clustered bootstrap** (1000 resamples, seed 0): resample unique `task_id`s and keep every attempt of each draw. Wilson intervals on check-level pillars treat checks as independent and are too narrow when many hidden cases share one package. Report `task_equalized_score` beside check-weighted `strongorc_score`. Do not rank two systems when paired task-level intervals overlap.
 
-Practice slices are `brutal`, `native`, `ladder`, and `reason`. They are plaintext public development instruments on **one confined channel**. The ranking slice is `holdout` (CLI alias `--slice ranking`) and is never stored in this repository. `core`, `hard`, and `frontier` are retired evidence: thin or destuped oracles that a jail row can saturate. Do not mix those scores into a ranking. `reason` rungs change evidence quality (partial traces; sealed post-kill contradiction; a required probe), not mechanical width. Scripted `pass` interprets live objects; there is no hidden/reference gold.
+Practice slices are `brutal`, `native`, `ladder`, and `reason`. They are plaintext public development instruments on **one confined channel**. The ranking slice is `holdout` (CLI alias `--slice ranking`) and is never stored in this repository. Official ranking is committed by SHA-256 in [`cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json`](cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json). `core`, `hard`, and `frontier` are retired evidence: thin or destuped oracles that a jail row can saturate. Do not mix those scores into a ranking. `reason` rungs change evidence quality (partial traces; sealed post-kill contradiction; a required probe), not mechanical width. Scripted `pass` interprets live objects; there is no hidden/reference gold.
 
-`family_scores` / `rung_scores` are strict task-pass rates and go to zero when no trial passes. Calibration reports task evidence plus O/W, family, rung, and facet evidence rates with hidden / interrupt / protocol / honesty diagnostics.
+`family_scores` / `rung_scores` are strict task-pass rates and go to zero when no trial passes. Calibration reports those rates plus diagnostic O/W, family, rung, and facet evidence with hidden / interrupt / protocol / honesty subscales.
 
 `strongorc calibrate` fits a same-harness response matrix from each task's
-protocol-gated hidden outcome rate, not its all-or-nothing pass bit. Strict
-task pass remains on every report. Interrupt survival and protocol-shape are
-diagnostic subscales: they may gate an outcome to zero but cannot supply
-positive ranking evidence. Scripted personas prove oracle non-vacuity and are
-excluded from every empirical model statistic and IRT fit. Live IRT refuses
-mixed confinement and refuses two live `command` rows with
-`confinement=unknown` (`command` is not automatically confined: Cursor SDK
-leak rows use that adapter too). Authored rungs are not calibrated until a
-same-channel matrix has at least three live systems.
+strict pass rate over non-censored attempts. `task_evidence_score` retains
+protocol-gated hidden outcome evidence for diagnosis only. Interrupt survival
+and protocol-shape are diagnostic subscales: they may gate an outcome to zero
+but cannot supply positive ranking evidence. Provider authentication, payment,
+rate-limit, and refusal failures are coverage, not ability. Scripted personas
+prove oracle non-vacuity and are excluded from every empirical model statistic
+and IRT fit. Live IRT refuses mixed confinement and refuses two live `command`
+rows with `confinement=unknown` (`command` is not automatically confined:
+Cursor SDK leak rows use that adapter too). Authored rungs are not calibrated
+until a same-channel matrix has at least three live systems.
 
 Before a private ranking run, the holdout must pass structural and scripted
 preflight: at least eight tasks, at least four tasks on each O/W track, four
@@ -54,7 +55,7 @@ Two tracks, same harness, same oracles. A trial PASSES only if **outcome and pro
 | **O** orchestrator | Decompose, lease, checkpoint, resume, verify, receipt. Must not write the solution. | False-green, $0 dead-swarm, planner-plays, skipped wave-boundary, lease collision, dishonest receipt |
 | **W** worker | Consume materialized artifacts, write structured ones, respect lease, resume, refuse honestly. | Hollow pass, ignored discovery, lease escape, replay-from-scratch, fake success |
 
-Public practice cards retain `strongorc_score` (harness 0.6.0), the check-weighted hidden / interrupt / protocol diagnostic multiplied by earned honesty. Private ranking uses task-equalized, protocol-gated hidden outcome evidence as its primary response. Interrupt and protocol checks remain reported gates and subscales but cannot add rank credit. Cards from 0.5.x are not comparable to 0.6.0.
+Public practice cards retain `strongorc_score` (harness 0.6.0), the check-weighted hidden / interrupt / protocol diagnostic multiplied by earned honesty. Private ranking uses `task_equalized_score` as the mean of per-task strict pass rates. Interrupt and protocol checks remain reported gates and subscales but cannot add rank credit. Cards from 0.5.x are not comparable to 0.6.0.
 
 `strongorc  N%`
 
@@ -116,7 +117,7 @@ Public core tasks inject a per-run `nonce` into selected seed files. Outputs tha
 - **native** — orchestration-protocol instrument after harness 0.4.6. Twelve tasks (six O, six W). Hidden pytest is still the contract (96 cases). Fail classes are wave, join, lease, dead-child, live token, cap, order, idempotency, trip, resume cursor, sealed bind, planted query — not JS→TS and not another WAL/CRDT library puzzle. W-track oracles omit kill events; grade-level sealed interrupt checks still apply when the task interrupts. Quote StrongOrc within slice plus `harness_version`. Native cards are a separate series from brutal.
 - **ladder** — difficulty series of the native fail classes after harness 0.5.0. Forty-eight tasks (four rungs × twelve families). Hidden pytest is the contract (384 cases). r1–r3 scale mechanical axes only. r4 is the inversion rung: the post-kill live object flips the package contract, so a re-read-and-continue r3 implementation fails hidden pytest. W-track oracles omit kill events; grade-level sealed interrupt checks still apply when the task interrupts. Quote StrongOrc within slice plus `harness_version`. Cards from the 36-task ladder are not comparable.
 - **reason** — public practice slice after harness 0.6.0. Twelve tasks (four families × three reasoning-depth rungs; six O, six W). Not a registry instrument and not a live-model ranking series. Rungs change evidence quality, not file/lane/decoy width: r1 induces a contract from partial traces; r2 revises after a sealed post-kill contradiction; r3 must write a discriminating `state/probe.json` before committing. Hidden pytest is development-only (96 opaque `test_case_*` ids). Scripted pass interprets live objects; there is no `hidden/reference` gold. Quote StrongOrc within slice plus `harness_version`. The private holdout is the ranking set; do not treat public `reason` as contamination-proof.
-- **holdout** — private overlay via `STRONGORC_HOLDOUT`. Public `tasks/holdout` contains only its operator README. The ranking gate requires 24 opaque tasks: eight families × three evidence-quality rungs, split 12 O / 12 W. O tasks use parent-sealed broker dispatch and report consumption; W tasks execute a frozen orchestrator assignment. Candidate-visible live state is nonce-generated before execution and may be revised by trusted generator code after a harness kill. Gold, generic fail, outcome-slip, and protocol-slip personas must produce 24/24, 0/24, 0/24, and 0/24. Official ranking uses confined OpenRouter; shell is an ablation. Unset or incomplete overlays refuse before model execution.
+- **holdout** — private overlay via `STRONGORC_HOLDOUT`. Public `tasks/holdout` contains only its operator README. The ranking gate requires 24 opaque tasks: eight families × three evidence-quality rungs, split 12 O / 12 W. O tasks use parent-sealed broker dispatch and report consumption; W tasks execute a frozen orchestrator assignment. Candidate-visible live state is nonce-generated before execution and may be revised by trusted generator code after a harness kill. Gold, generic fail, outcome-slip, and protocol-slip personas must produce 24/24, 0/24, 0/24, and 0/24. Official ranking uses confined OpenRouter against ranking-v1 (`b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110`); shell is an ablation. Unset, incomplete, or uncommitted overlays refuse before model execution.
 
 ## Event vocabulary
 

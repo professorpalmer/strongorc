@@ -8,11 +8,11 @@ A drop-day bench for **durable orchestration**. Outcome is necessary. Protocol h
 
 This is a sibling of [State, Not Tokens](https://github.com/professorpalmer/durable-state-vs-context). It is not a Puppetmaster module and not a remake of SWE-bench, DeepSWE, Terminal-Bench, or NL2Repo. Those benches lent method. The tasks are ours.
 
-Construct: [SPEC.md](SPEC.md). Datasheet: [docs/DATASHEET.md](docs/DATASHEET.md). Agent hook: [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md). Registry: [cards/registry.json](cards/registry.json) is authoritative for retired, non-model, and leak-diagnostic status — never infer `clean` from a filename or a score.
+Construct: [SPEC.md](SPEC.md). Ranking contract: [docs/RANKING.md](docs/RANKING.md). Datasheet: [docs/DATASHEET.md](docs/DATASHEET.md). Agent hook: [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md). Registry: [cards/registry.json](cards/registry.json) is authoritative for retired, non-model, and leak-diagnostic status — never infer `clean` from a filename or a score.
 
 ## Card
 
-Public practice cards retain `strongorc_score` (harness 0.6.0): the check-weighted evidence rate over hidden, interrupt, and protocol-shape checks, multiplied by `honesty_rate_earned`. Private ranking instead uses task-equalized, protocol-gated hidden outcome evidence; interrupt and protocol vocabulary cannot add rank credit. Both retain strict task pass and the full diagnostic fingerprint. Cards from 0.5.x are not comparable to 0.6.0.
+Public practice cards retain `strongorc_score` (harness 0.6.0): the check-weighted evidence rate over hidden, interrupt, and protocol-shape checks, multiplied by `honesty_rate_earned`. Private ranking uses `task_equalized_score` as the mean of per-task **strict pass** rates (outcome and protocol) over non-censored attempts. Protocol-gated hidden evidence stays diagnostic. Interrupt and protocol vocabulary cannot add rank credit. Cards from 0.5.x are not comparable to 0.6.0. There is no official ranking table yet.
 
 | Field | Meaning |
 | --- | --- |
@@ -40,7 +40,7 @@ Public practice cards retain `strongorc_score` (harness 0.6.0): the check-weight
 
 Do not copy these into a product `capability_score`. Use them as a dated overlay after a same-test run on this harness.
 
-Practice slices are **brutal**, **native**, **ladder**, and **reason**. They live in this tree with plaintext hidden tests; they may leak and they may saturate. Public `reason` is the current balanced O/W calibration instrument. The ranking set is a private **holdout** (`--slice ranking`), never authored here, and live ranking refuses until the bank passes structural and scripted preflight. `--slice practice` sweeps the public four for development; it is not a score. The default CLI slice is `ladder`. **core**, **hard**, and **frontier** are retired evidence. Quote a StrongOrc number with slice, `harness_version`, adapter, and confinement. Strict task pass stays visible; calibration uses protocol-gated hidden outcome evidence. Interrupt survival and protocol vocabulary are diagnostics that may invalidate an outcome but never add ranking points.
+Practice slices are **brutal**, **native**, **ladder**, and **reason**. They live in this tree with plaintext hidden tests; they may leak and they may saturate. Public `reason` is the current balanced O/W development instrument. The ranking set is a private **holdout** (`--slice ranking`), never authored here. Live ranking refuses until the overlay matches the SHA-256 commitment in [`cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json`](cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json). `--slice practice` sweeps the public four for development; it is not a score. The default CLI slice is `ladder`. **core**, **hard**, and **frontier** are retired evidence. Quote a StrongOrc number with slice, `harness_version`, adapter, confinement, and (for ranking) the bank commitment. Development scores on an earlier private bank are labeled in [docs/CALIBRATION_APPENDIX.md](docs/CALIBRATION_APPENDIX.md) and are not ranks.
 
 ## Live channel
 
@@ -133,7 +133,9 @@ python scripts/calibrate.py --slice practice --live stealth/ox-alpha --max-usd-p
 
 Ranking uses a private overlay and the confined OpenRouter channel. Authoring
 code, ids, metadata, gold agents, worker pools, and oracles stay outside this
-repository. Validate before any model process can start:
+repository. The public commitment is
+`b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110`.
+Validate before any model process can start:
 
 ```bash
 export STRONGORC_HOLDOUT=/path/to/private/overlay
@@ -142,13 +144,11 @@ python scripts/calibrate.py --slice ranking --live MODEL --initial-cell \
   --repeats 1 --jobs 2 --max-usd-per-task 1
 ```
 
-`--slice ranking` defaults to confined `openrouter`. `openrouter-shell` is a
-retired jail ablation, not an official score. Live jsonl persists each
-`(task_id, attempt)` so a killed wave resumes without dropping repeats or
-repaying completed attempts. Paid ranking also verifies every private-bank
-file against the SHA-256 commitment in the preregistration card. Start with
-the eight-item cell frozen inside the private manifest and widen only after
-outcome variance appears.
+`--slice ranking` defaults to confined `openrouter` and the ranking-v1
+preregister card. `openrouter-shell` is a retired jail ablation, not an
+official score. Live jsonl persists each `(task_id, attempt)` so a killed
+wave resumes without dropping repeats or repaying completed attempts.
+Paid ranking verifies every private-bank file against that commitment.
 
 ```bash
 strongorc run --slice ladder --adapter command \

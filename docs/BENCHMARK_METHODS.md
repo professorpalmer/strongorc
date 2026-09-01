@@ -1,75 +1,56 @@
 # How to create a benchmark: StrongOrc research notes
 
-The public practice set is `brutal`, `native`, `ladder`, and `reason`.
-Public `reason` remains the balanced development instrument. The ranking
-instrument is an off-git private bank: eight orthogonal families × three
-evidence-quality rungs, split 12 orchestrator / 12 worker. It is ready for
-initial live calibration after zero-cost validation produced gold 24/24,
-generic fail 0/24, outcome-slip 0/24, and protocol-slip 0/24.
+The frozen ranking contract is [RANKING.md](RANKING.md). Development
+scores used to freeze that contract are in
+[CALIBRATION_APPENDIX.md](CALIBRATION_APPENDIX.md). This file keeps the
+literature argument and the destup diary. It is not a leaderboard.
 
-The v2 harness closes the construct failures that made the earlier holdout
-unusable:
+The public practice set is `brutal`, `native`, `ladder`, and `reason`.
+Public `reason` remains the balanced development instrument. Official
+ranking is an off-git private bank: eight families × three
+evidence-quality rungs, split 12 orchestrator / 12 worker. The public
+object is the SHA-256 commitment
+`b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110`.
+
+The 0.6.0 ranking harness closes the construct failures that made earlier
+holdouts unusable:
 
 - orchestrator tasks call a parent-owned worker broker; dispatch and report
   consumption are sealed into `TrialRecord` and cannot be earned by writing
   event vocabulary or `workers_ran`;
 - worker tasks execute a frozen orchestrator assignment;
 - private generators materialize candidate-visible live evidence before the
-  model starts and can revise it after a parent-observed kill;
-- calibration responses are protocol-gated hidden outcome rates. Interrupt
-  survival and protocol vocabulary are diagnostics, never positive rank
-  credit;
+  model starts and can revise it after a parent-observed interrupt;
+- the ranking headline is strict task pass. Protocol-gated hidden evidence
+  is diagnostic. Interrupt survival and protocol vocabulary never add rank;
+- provider authentication, payment, rate-limit, and refusal failures are
+  coverage, not ability;
 - every `(task_id, attempt)` has an isolated run directory and durable jsonl
   key, so repeats survive resume;
 - private ids, metadata, authoring code, gold agents, worker pools, and
   oracles stay outside git;
-- a public preregistration hash commits to a private file-digest manifest and
-  its exact eight-item canary before any paid response is observed;
+- a public preregistration hash commits to a private file-digest manifest
+  before any official ranking response is observed;
 - official ranking is the confined OpenRouter jail. `openrouter-shell` is
   historical ablation evidence.
 
 These choices transfer the useful parts of ARC-AGI-2 (private/generated
 evaluation and saturation replacement), FrontierMath/LiveBench (unpublished
 or post-cutoff items), HLE/SWE-bench Verified (independent review), EvalPlus
-(dense deterministic checks), PaperBench (hierarchical diagnostics), and
-RE-Bench/METR (cost and process reporting) without adopting LLM-as-judge.
+(dense deterministic checks), PaperBench (hierarchical diagnostics),
+RE-Bench/METR (cost and process reporting), and Zhu et al. 2025 (Agentic
+Benchmark Checklist: task validity, outcome validity, and reporting)
+without adopting LLM-as-judge.
 
-## Readiness and calibration plan
+## Frozen ranking readiness
 
-Success has five gates:
-
-1. **Construct coverage:** every ranking bank has meaningful orchestrator
-   and worker tasks; neither track can be inferred from a relabeled prompt.
-2. **Oracle validity:** deterministic scripted interpretation passes every
-   task, targeted scripted failure passes none, and outcome plus protocol
-   remain necessary.
-3. **Durability:** interrupted items require parent-sealed kill, checkpoint,
-   and resumed-state evidence rather than agent narration.
-4. **Discrimination:** strict task pass stays visible, while protocol-gated
-   hidden outcome is the calibration response. Weak, middle, and frontier live
-   systems must separate on the same channel before fitting or publishing.
-5. **Cost and reproducibility:** frozen jsonl regrades without keys; provider
-   usage is authoritative; paid runs require an explicit per-task threshold
-   and default to at most two concurrent tasks.
-
-Sequence:
-
-1. Export `STRONGORC_HOLDOUT` to the private frontier-v2 overlay and rerun
-   `--slice ranking --validate-only`. Any structural, scripted, file-manifest,
-   or public commitment mismatch blocks paid execution.
-2. Start with eight tasks: one per family, mixed O/W and r1/r2/r3. Use one weak
-   system and one frontier system, `--repeats 1`, `--jobs 2`, and an explicit
-   per-task USD threshold.
-3. Stop on a common outcome floor, frontier saturation, missing provider cost,
-   or no cross-system item variance. Diagnose before widening.
-4. Widen to all 24 only when the canary changes hidden outcome or strict pass.
-   Add a middle system before a second frontier system.
-5. Allocate three attempts only to the identified 24-task series and systems
-   whose paired task-clustered intervals overlap. Resume the same jsonl;
-   completed attempts are not repaid.
-6. Publish no rank until one same-channel matrix has at least six live systems,
-   weak/middle/frontier occupancy, item variance, three attempts, and paired
-   separation of at least the pre-registered 0.10 delta.
+The ranking-v1 overlay passed structural and scripted preflight: gold
+24/24; generic fail, outcome-slip, protocol-slip, assignment-blind, and
+protocol-only all 0/24. A nine-system confined matrix on the earlier
+frontier-v6 bank identified 2PL, occupied weak/middle/frontier, and
+separated the frontier cluster from the middle cluster. That matrix is
+development evidence. Official ranks still require a new run on
+ranking-v1 after this revision is public.
 
 ## What the first confined matrix showed
 
@@ -113,7 +94,7 @@ Do not destup from this matrix. Five confined zeros cannot tell
 affordance. See the jail-ablation cell below and
 [STRONGORC_HISTORY.md](STRONGORC_HISTORY.md).
 
-## Current experiment: jail ablation
+## Historical note: 2026-08 jail ablation
 
 Same king (Fable), `reason` only, `--jobs 2`, new dest. Channel
 `openrouter-shell` adds `run_command` in the run dir. Stamp
@@ -503,33 +484,24 @@ Primary sources added here:
 - Bowman, “Eight Things to Know about Large Language Models,” 2023,
   https://arxiv.org/abs/2304.00612
 
-## Immediate instrument work before apex
+## Immediate instrument work before a public table
 
-1. Lead cards with tasks passed, family scores, and rung scores.
-2. Add a task-equalized primary view so verbose hidden suites do not dominate.
-3. Use task-clustered intervals for every pillar.
-4. Record adapter, model parameters, confinement, contamination status,
-   attempts, and pre-registered run configuration.
-5. Make worker-track interruptions visible or stop counting those tasks as
-   interruption tests.
-6. Replace the self-reported planner-play check with structural provenance.
-7. Quarantine authoring-machine cards as leak diagnostics.
-8. Add a registry/retirement index and a benchmark datasheet.
-9. Build the private holdout outside git.
-10. Do not add r5 or r6 mechanical ladder constants.
-11. Public reason is practice. Do not destup it to manufacture a
-    ranking. Compare hidden to confined Fable reason 1.04%.
-12. Refuse every paid live run without structural/scripted preflight and
-    an explicit per-task USD cap. Concurrency above two is an override,
-    never a default.
+1. Publish this revision: harness, scoring rules, ranking commitment, and
+   labeled calibration appendix. Keep the private bank off git.
+2. Get CI green on `dev`, then run official ranking-v1 attempts.
+3. Do not destup public practice oracles to manufacture a rank.
+4. Do not add r5 or r6 mechanical ladder constants.
+5. Refuse every paid live run without structural/scripted preflight and
+   an explicit per-task USD cap. Concurrency above two is an override,
+   never a default.
+6. Keep authoring-machine Cursor SDK cards as leak diagnostics.
 
 ## Publication sequence
 
 The how-to narrative and the StrongOrc research paper are different artifacts.
-A how-to without a confined response matrix is a lab notebook. A paper
-without a validity argument is a leaderboard.
 
-1. Finish and verify the 0.6.0 instrument (scoring, reason slice, calibrate).
+1. This revision freezes harness 0.6.0, the ranking-v1 commitment, and the
+   scoring rules. Calibration rows stay labeled development evidence.
 2. Keep citation metadata, datasheet, frozen trial replication, and CI gates
    current with the tagged tree.
 3. Tag a green release from `main` only after CI is green on that tree.
@@ -537,28 +509,16 @@ without a validity argument is a leaderboard.
    Zenodo is the first citable object (BetterBench lifecycle; Gebru
    datasheet; Mitchell model-card spirit applied to the bench, not the
    systems).
-5. Publish the practitioner blog, “How to Create a Benchmark,” as the honest
-   destuping diary. It may cite leak-diagnostic rows if they are labeled.
-6. The one-attempt confined OpenRouter 80 exists for five systems
-   (2026-08-28–29). All task-pass zeros. Finish the jail-ablation cell
-   before rewriting ranking oracles. Three attempts and two systems
-   per band are still required before a registry card. Do not fold
-   Cursor SDK authoring rows, OpenCode Go, or `openrouter-shell` into
-   the confined matrix.
-7. Frontier confined systems sit at 0/80 tasks, not above 0.80. That
-   is a floor, not saturation. Do not destup until the shell cell
-   says whether the jail or the items are the wall. Saturation of a
-   destuped slice is a methods result, not a model win.
-8. Publish a research article titled around “StrongOrc: Measuring Durable
-   Orchestration” only after those confined results exist. The paper’s
-   claims are the validity argument, the item-response evidence, and the
+5. Run official ranking only after that freeze is public. Do not change
+   the bank while scoring.
+6. Publish a research article titled around “StrongOrc: Measuring Durable
+   Orchestration” only after ranking-v1 results exist. The paper’s claims
+   are the validity argument, the item-response evidence, and the
    non-claim list — not a generic agent ranking.
-9. Keep the public card registry self-hosted. Do not flatten slice,
+7. Keep the public card registry self-hosted. Do not flatten slice,
    harness version, and channel into a Chatbot-Arena-style leaderboard
    (Singh et al., 2025).
 
 GitHub plus Zenodo is the first citable release path. arXiv is appropriate
-for the later construct, method, results, and limitations paper—not as
-the primary home for a how-to article without publication-grade
-measurements.
+for the later construct, method, results, and limitations paper.
 

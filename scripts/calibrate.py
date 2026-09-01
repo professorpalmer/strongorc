@@ -73,6 +73,9 @@ DEFAULT_PREREGISTER = ROOT / "cards" / "preregister" / "reason-0.6.0.json"
 OPENCODE_PREREGISTER = ROOT / "cards" / "preregister" / "reason-0.6.0-opencode-go.json"
 OPENROUTER_PREREGISTER = ROOT / "cards" / "preregister" / "reason-0.6.0-openrouter.json"
 OPENROUTER_SHELL_PREREGISTER = ROOT / "cards" / "preregister" / "reason-0.6.0-openrouter-shell.json"
+RANKING_PREREGISTER = (
+    ROOT / "cards" / "preregister" / "holdout-0.6.0-openrouter-ranking-v1.json"
+)
 DEFAULT_OUT_ROOT = Path.home() / ".strongorc" / "calibration"
 LIVE_CHANNELS = ("cursor-sdk", "agentic-opencode", "openrouter", "openrouter-shell")
 
@@ -203,6 +206,8 @@ def _live_command(cmd: str | None, channel: str) -> str:
 def _preregister_for_channel(path: Path, channel: str, slice_name: str = "reason") -> Path:
     if path != DEFAULT_PREREGISTER:
         return path
+    if slice_name == "holdout" and channel == "openrouter":
+        return RANKING_PREREGISTER
     if channel == "agentic-opencode":
         return OPENCODE_PREREGISTER
     if channel == "openrouter":

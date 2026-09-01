@@ -22,11 +22,11 @@ StrongOrc measures *durable orchestration*:
 
 A trial passes only if **outcome and protocol** both pass. Practice cards
 retain `strongorc_score`, the legacy check-weighted diagnostic. The private
-ranking calibration response is `task_evidence_rate`: hidden outcome checks
-averaged within task and attempt, then set to zero unless honesty and protocol
-pass. Interrupt and protocol-shape rates remain diagnostics; they do not add
-ranking credit. Track-specific O/W evidence, family, rung, and facet subscales
-are reported alongside strict task pass.
+ranking headline is `task_equalized_score`: the mean of per-task strict pass
+rates over non-censored attempts. `task_evidence_score` keeps protocol-gated
+hidden outcome evidence as a diagnostic. Interrupt and protocol-shape rates
+do not add ranking credit. Provider infrastructure failures are coverage.
+See [RANKING.md](RANKING.md).
 
 Subcomponents (fail classes, not product features): false-green and $0
 dead-swarm; planner-plays; skipped wave-boundary; lease collision or
@@ -57,8 +57,10 @@ not vacuous; they are not model results.
 The private holdout is minted outside this checkout. It contains opaque task
 ids, nonce-bound generators, gold and targeted-failure personas, private
 oracles, and harness-owned worker pools. Only `tasks/holdout/README.md` is
-public. A public SHA-256 preregistration commits to the private file-digest
-manifest and its initial eight-item cell; paid runs refuse a different bank.
+public. Official ranking is committed by
+`b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110` in
+[`holdout-0.6.0-openrouter-ranking-v1.json`](../cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json).
+Paid runs refuse a different bank.
 
 Authoring chronology and saturation evidence: [STRONGORC_HISTORY.md](STRONGORC_HISTORY.md).
 Measurement notes: [BENCHMARK_METHODS.md](BENCHMARK_METHODS.md).
@@ -177,10 +179,11 @@ resampling tasks alone; those primary intervals are widened with a
 task-level Wilson envelope so a finite all-pass card is not `[1, 1]`
 and a finite all-fail card is not `[0, 0]`. Wilson 95% intervals on
 check-level pillars treat checks as independent and are too narrow when
-many checks share a package. Report `task_equalized_score` beside
-check-weighted `strongorc_score`.
+many checks share a package. On ranking, `task_equalized_score` is the strict-pass headline.
 `--repeats N` fills `pass_at_1` / `pass_at_k`. Do not rank two systems
-when paired task-level uncertainty does not separate them.
+when paired task-level uncertainty does not separate them. Development
+scores on the earlier frontier-v6 bank are in
+[CALIBRATION_APPENDIX.md](CALIBRATION_APPENDIX.md) and are not ranks.
 
 Cards from 0.5.x are not comparable to 0.6.0. The 0.6.0 headline
 changed what counts as evidence and how honesty gates the number.
@@ -211,9 +214,9 @@ its author/version metadata are verified.
 ## 10. Private holdout
 
 `STRONGORC_HOLDOUT` points at an overlay **outside git**. Public
-`tasks/holdout` is README and opaque stubs (`hld_<hex>`). Real banks,
-generators, references, and `oracle.py` stay out of the repository.
-Unset overlay refuses `run` / `card` rather than scoring 0/0.
+`tasks/holdout` is the operator README only. Real banks, generators,
+references, and `oracle.py` stay out of the repository. Unset or
+uncommitted overlay refuses `run` / `card` rather than scoring 0/0.
 `tests/fixtures/holdout_overlay` is a non-secret miniature used in CI.
 CI must not require a real holdout.
 

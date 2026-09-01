@@ -26,7 +26,10 @@ worker pools, hidden cases, references, or expected values.
    `strongorc run --slice holdout` and `strongorc card --slice holdout`
    refuse rather than scoring vacuously.
 5. Ranking uses the confined OpenRouter jail. Shell is an ablation, never
-   the official channel. Do not publish private instances on cards.
+   the official channel. Do not publish private instances on cards. The
+   public commitment is
+   `b4dee106cd5d442e23899c38adf122b54ad82f71163ff36770b7b71f9ee00110`
+   in `cards/preregister/holdout-0.6.0-openrouter-ranking-v1.json`.
 
 Architecture tests use `tests/fixtures/holdout_overlay`, which is a
 non-secret miniature overlay — not the private holdout.
