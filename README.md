@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="brand/strongorc-flex.svg" width="240" alt="StrongOrc">
+  <img src="brand/strongorc-react-flex.gif" width="240" alt="StrongOrc flexing">
 </p>
 <h1 align="center">StrongOrc</h1>
 <p align="center">Can a model manage agents without playing?<br>Can it be a durable worker under a frozen orchestrator?</p>
